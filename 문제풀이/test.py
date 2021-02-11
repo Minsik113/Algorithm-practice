@@ -1,21 +1,21 @@
-'''
-무게 : 1~10
-1보다 큰 볼링공 개수: dp[1] = n-sum(1)
-2보다 큰 볼링공 개수: dp[2] = dp[1]-sum(2)
-'''
-n, m = map(int, input().split())
-array = list(map(int, input().split()))
+n = int(input())
+plans = input().split()
+dx = [-1, 1, 0, 0] # 상 하 좌 우
+dy = [0, 0, -1, 1] 
+x, y = 1, 1
+move_type = ['U','D','L','R']
 
-data = [0] * (m+1) # 무게가 1~10까지
-for i in array:
-    data[i] += 1
-
-result = 0
-for i in range(1, m+1):
-    target = data[i]
-    n = n - target
-    result += target
-print(result)
-
-
-
+for plan in plans:
+    nx, ny = 0, 0
+    for i in range(len(move_type)):
+        if plan == move_type[i]:
+            nx = dx[i] + x
+            ny = dy[i] + y
+            print('dd이동',nx, ny)
+            
+        
+    if nx < 1 or ny < 1 or nx > n or ny >n:
+        continue
+    x, y = nx, ny
+    print('이동',x, y)
+print(x, y)
