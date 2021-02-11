@@ -1,0 +1,102 @@
+★★★★★★★★정리사이트★★★★★★★★★
+https://www.daleseo.com/python-heapq/#%EC%B5%9C%EC%86%8C%EA%B0%92-%EC%82%AD%EC%A0%9C%ED%95%98%EC%A7%80-%EC%95%8A%EA%B3%A0-%EC%96%BB%EA%B8%B0
+
+쉽게정리한 사이트
+https://velog.io/@jiffydev/algo-41
+
+1. 최대 힙(Max Heap)
+
+최대 트리(Max Tree)는 각 노드의 키(Key)값이 (자식 노드가 있다면) 
+그 자식의 키(Key)값보다 작지 않은(=크거나 같은) 트리이다.
+최대 힙(Max Heap)은 최대 트리(Max Tree)이면서 
+완전 이진 트리(Complete Binary Tree)이다.
+
+
+
+2. 최소 힙(Min Heap)
+
+최소 트리(Min Tree)는 각 노드의 키(Key)값이 (자식 노드가 있다면) 
+그 자식의 키(Key)값보다 크지 않은(=작거나 같은) 트리이다.
+최소 힙(Min Heap)은 최소 트리(Min Tree)이면서 
+완전 이진 트리(Complete Binary Tree)이다.
+
++ 정리)
+최대 힙(Max Heap) : 부모 노드는 자식 노드보다 작지만 않으면 된다. + 완전이진트리이다.
+최소 힙(Min Heap) : 부모 노드는 자식 노드보다 크지만 않으면 된다. + 완전이진트리이다.
++ 추가설명)
+완전 이진트리(Complete Binary Tree)는 노드를 삽입할 때, 왼쪽부터 차례대로 삽입하는 트리이다.
+
+
+★★★★★★ 최소힙 ★★★★★★
+
+import heapq
+heap = []
+heapq.heappush(heap, 4)
+heapq.heappush(heap, 1)
+heapq.heappush(heap, 7)
+heapq.heappush(heap, 3)
+print(heap) # [1, 3, 7, 4]
+
+heap = [4, 1, 7, 3, 8, 5]
+heapq.heapify(heap) # 기존 리스트를 힙으로 변환
+print(heap)  
+# [1, 3, 5, 4, 8, 7]
+
+
+
+★★★★★★ 최대힙 ★★★★★★
+
+import heapq
+
+nums = [4, 1, 7, 3, 8, 5]
+heap = []
+
+for num in nums:
+  heapq.heappush(heap, (-num, num))  # (우선 순위, 값)
+
+while heap:
+  print(heapq.heappop(heap)[1])  # index 1
+
+# 8
+# 7
+# 5
+# 4
+# 3
+# 1
+
+
+
+★★★★★★ K번째 최소값/최대값 ★★★★★★
+
+import heapq
+
+def kth_smallest(nums, k):
+  heap = []
+  for num in nums:
+    heapq.heappush(heap, num)
+
+  kth_min = None
+  for _ in range(k):
+    kth_min = heapq.heappop(heap)
+  return kth_min
+
+print(kth_smallest([4, 1, 7, 3, 8, 5], 3))
+# 4
+
+
+★★★★★★ 힙 정렬 ★★★★★★
+
+import heapq
+
+def heap_sort(nums):
+  heap = []
+  for num in nums:
+    heapq.heappush(heap, num)
+  
+  sorted_nums = []
+  while heap:
+    sorted_nums.append(heapq.heappop(heap))
+  return sorted_nums
+
+print(heap_sort([4, 1, 7, 3, 8, 5]))
+# [1, 3, 4, 5, 7, 8]

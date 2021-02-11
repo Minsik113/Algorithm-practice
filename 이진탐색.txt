@@ -1,0 +1,72 @@
+★★이진탐색
+데이터의 값이 매우 크거나 
+데이터의 개수가 매우 큰 경우에는 이진탐색을 고려해봐라
+
+매우 값이 큼에도 탐색을 해야한다면, 이진탐색을 해보자.
+O(x)이어도 10억이니까 O(logX)나 O(루트x)를 이용하라는 의미이다.
+
+min과 max를 설정해서 mid값을 찾고, 이것을 반복해서 품
+start = array[1] - array[0]  = min
+end = array[-1] - array[0]  = max
+
+1/ 재귀적 으로 풀기
+2/ 반복적 으로 풀기 (이게 약간 더 유리)
+
+백준
+https://www.acmicpc.net/problemset?sort=ac_desc&algo=12
+
+예제 코드
+#############  #############  #############
+1/
+def Bserchtree(array, target):
+    start = 0
+    end = len(array) - 1
+    mid = 0
+
+    while (start <= end):
+        mid = (start + end) // 2
+
+        if array[mid] == target: #  딱 맞춤
+            return mid
+
+        elif array[mid] > target: # 왼쪽에 있음
+            end = mid - 1
+    
+        else: # 오른쪽에 있음
+            start = mid + 1
+    return -1
+
+target = int(input())
+array = [17, 28, 43, 67, 88, 92, 100]
+mid = Bserchtree(array, target)
+
+print(target,'는',mid,'위치에 있음')
+print(array)
+
+#############  #############  #############
+2/
+def Bserchtree(array, target, start, end):
+    if start > end:
+        return -1
+
+    mid = (start + end) // 2
+    
+    if array[mid] == target: #  딱 맞춤
+        return mid
+
+    elif array[mid] > target: # 왼쪽에 있음
+        return Bserchtree(array, target, start, mid-1)
+    
+    else: # 오른쪽에 있음
+        return Bserchtree(array, target, mid+1, end)
+
+
+target = int(input())
+array = [17, 28, 43, 67, 88, 92, 100]
+
+start = 0
+end = len(array) - 1
+mid = Bserchtree(array, target, start, end)
+
+print(target,'는',mid,'위치에 있음')
+print(array)

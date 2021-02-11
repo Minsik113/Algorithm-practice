@@ -1,0 +1,48 @@
+https://solved.ac/class
+■백준 class별 문제
+
+https://www.fun-coding.org/python-question1-web.html 
+■여기서 1~4장 문제 70몇문제있는데 이거다풀고오면 좋다.
+
+https://www.fastcampus.co.kr/courses/201435/clips/
+■퍼캠 1장1단원.
+
+http://ejklike.github.io/blog/
+■이준희강사 깃허브
+
+https://wikidocs.net/32#zip
+■내장함수 zip(), abs() 등등
+
+pythontutor.com
+python Live 동작보기
+
+★str,int섞어서 출력
+print(str(a)+" + "+str(b)+" = "+str(a+b))
+print(a, "+",b,"=",a+b)
+
+★원하는 string제거. strip()
+mystr = "a man goes into the room..."
+mystr.strip('...')
+
+★원하는 문자열 찾기. find()
+a = "wernqwen"
+a.find('n') #=>있으면 가장처음발견한 index,없으면 -1 출력.
+
+★range(0,11) #0~10
+
+★strip("a") 
+#왼쪽과 오른쪽부터 출발. a만나면 지움. aaweradsa라면 양사이드a만지워지고
+#안에있는 a는 안지워짐.
+
+★tuple은 값이 안변함.
+a,b = 1, 2
+a,b = b, a # => 2,1로 저장됨.
+
+★dict
+c["environment"]="환경"
+c["company"]="회사"
+c["government"]="정부,정치"
+c["face"]="얼굴"    
+c_keys = [data for data in c.keys()]
+#c_keys에는 list형식으로 key값들이 저장된다.
+

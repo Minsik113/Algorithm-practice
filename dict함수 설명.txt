@@ -1,0 +1,49 @@
+parent = dict()
+
+x = 's'
+parent[x] = x
+x = 'j'
+parent[x] = x
+x = 'w'
+parent[x] = x
+x = 'q'
+parent[x] = x
+x = 'e'
+parent[x] = x
+
+print(parent)
+print(parent.keys())
+print(parent.values())
+print(parent.items())
+
+for a, b in parent.items():
+    print(a, b)
+
+★★★★★★★★★★★★★★★★★★★
+★★★★★★★  출력  ★★★★★★★★
+★★★★★★★★★★★★★★★★★★★
+
+{'s': 's', 'j': 'j', 'w': 'w', 'q': 'q', 'e': 'e'}
+dict_keys(['s', 'j', 'w', 'q', 'e'])
+dict_values(['s', 'j', 'w', 'q', 'e'])
+dict_items([('s', 's'), ('j', 'j'), ('w', 'w'), ('q', 'q'), ('e', 'e')])
+s s
+j j
+w w
+q q
+e e
+########################################
+########################################
+data = dict()
+data['a'] = 5
+data['b'] = 2
+data['c'] = 3
+data['d'] = 10
+
+for i in data:
+    print(data[i])
+
+5
+2
+3
+10

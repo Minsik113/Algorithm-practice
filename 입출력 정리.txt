@@ -1,0 +1,12 @@
+변형 : 
+
+num = int(input())   ->  num = int(sys.stdin.readline())
+사용 시, import sys  선언 필요
+
+
+n = input()
+a = [sys.stdin.readline() for i in range(n)]
+
+
+n_array = [map(int, sys.stdin.readline().split(' '))]
+

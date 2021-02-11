@@ -1,0 +1,13 @@
+
+★★ 문자열에서 문자찾기 set()
+a = set('abracadabra')
+b = set('alacazam')
+
+if 'a' in a: # Ture
+
+
+★★ find()로 문자열에 있는지 없는지 확인
+a.find('qw')는 a에서 'qw'있는지 본다
+# 없다면 return -1
+# 있다면 제일 먼저 찾아지는 index번호 return
+

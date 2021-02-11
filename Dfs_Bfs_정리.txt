@@ -1,0 +1,36 @@
+★
+트리가 잘 이해가려면 재귀함수 부분을 잘 알아야함.
+
+★
+전위 순회: 루트 -> 왼쪽 자식 -> 오른쪽 자식
+중위 순회: 왼쪽 자식 -> 루트 -> 오른쪽 자식 
+후위 순회: 왼쪽 자식 -> 오른쪽 자식 -> 루트
+(중위 순회의 경우 x축 기준으로 보았을때 쭉 본 것이랑 같다.)
+
+
+
+
+★★★★★★★★★★ ★★★★★★★★★★★
+from collections import deque
+
+def bfs(graph, start, visited):
+    queue = deque([start]) # deque = [start]
+    visited[start] = True
+
+    while queue:
+        v = queue.popleft() # 시작노드를 queue에서 제거
+        print(v, end=" ")
+
+        # 인접 노드가 있으면 큐에 추가한다.
+        for i in graph[v]:
+            if not visited[i]: # 방문한 적이 없는 노드를 추가해준다.
+                queue.append(i)
+                visited[i] = True
+
+def dfs(graph, v, visited):
+    visited[v] = True
+    print(v, end=" ")
+
+    for i in graph[v]:
+        if not visited[i]: # 방문한적이 없는 노드이면
+            dfs(graph, i, visited)
