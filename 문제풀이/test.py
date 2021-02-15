@@ -1,5 +1,5 @@
-import sys
-input = sys.stdin.readline
-
-n = list(map(str, input().rstrip()))
-print(n)
+array = []
+if array:
+    print('ww')
+else:
+    print('aaaa')

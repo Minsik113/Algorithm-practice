@@ -17,9 +17,9 @@
 #     if array[mid] == target:
 #         return mid
 #     elif target < array[mid]: # 타겟이 작으니 끝점 줄임
-#         binarysearch_tree(array, target, start, mid-1)
+#         return binarysearch_tree(array, target, start, mid-1)
 #     else:
-#         binarysearch_tree(array, target, mid + 1, end)
+#         return binarysearch_tree(array, target, mid + 1, end)
 
 # result = binarysearch_tree(array, target, 0, n-1) # result 인덱스에 있다.
 # if result == None:
