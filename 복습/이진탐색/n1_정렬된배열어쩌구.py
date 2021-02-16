@@ -5,6 +5,60 @@
 ★★재귀함수는 -1로 리턴해도 None으로나옴★★
 '''
 
+n, x = map(int, input().split())
+array = list(map(int, input().split()))
+# x의 시작index찾자
+low_index = 0
+high_index = 0
+
+def low_binary_search_tree(array, target, start, end):
+    global low_index
+
+    while start <= end:
+        mid = (start + end) // 2
+
+        if array[mid] == target:  # 1~2인곳을 찾아야함. 
+            if mid-1 >= 0: # 범위안에 존재하면 mid-1이 target과같은지확인. 아니라면 이게 최소값
+                if array[mid-1] != target:
+                    return mid
+                else: # 더작은위치를 보게 end줄인다
+                    end = mid - 1
+            else: # 이전값이 없으면 이게 제일작은 index지
+                return mid
+        elif array[mid] > target: # 찾고자하는 수보다 크니까 줄여야함
+            end = mid - 1
+        else: 
+            start = mid + 1
+    return -1
+
+def high_binary_search_tree(array, target, start, end):
+    global high_index
+
+    while start <= end:
+        mid = (start + end) // 2
+
+        if array[mid] == target:  # 2~3인곳을 찾아야함. 
+            if mid+1 < n: # 범위안에 존재하면 mid-1이 target과같은지확인.
+                if array[mid+1] != target:
+                    return mid
+                else: # 더작은위치를 보게 end줄인다
+                    start = mid + 1
+            else: # 이후값이 없으면 이게 제일 큰 index지
+                return mid
+        elif array[mid] > target: # 찾고자하는 수보다 크니까 줄여야함
+            end = mid - 1
+        else: 
+            start = mid + 1
+    return -1
+
+l = low_binary_search_tree(array, x, 0, n-1) # 시작인덱스~끝인덱스
+h = high_binary_search_tree(array, x, 0, n-1) # 시작인덱스~끝인덱스
+if l == -1:
+    print(-1)
+else:
+    print(h, l)
+    print(h - l + 1)
+
 ##########################################
 ##########################################
 # 같은수의 시작index와 마지막index를 찾아라. (둘다 이진탐색으로)
