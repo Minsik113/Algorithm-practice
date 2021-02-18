@@ -1,5 +1,29 @@
 '''
 '''
+def solution(N, stages):
+    answer = []
+    # 1. 사용자마자 어디 스테이지를 도전중인지 체크하자
+    check = [0] * (N+2) # check[i] = i번째 스테이지에 있는사람 check[N+2] = 다깬사람
+    percentage = [0] * (N+2)
+    for i in stages:
+        check[i] += 1
+    user_num = sum(check)
+    
+    # 2. 실패율 계산하자
+    result = []
+    for i in range(1, N+1): # 1~ N단계까지 (N+1은 안봐도됨)
+        if user_num != 0:
+            percentage[i] = check[i] / user_num
+            user_num -= check[i]
+        result.append((percentage[i],i)) # (실패율, 스테이지)
+    print(result)
+    # 3. 실패율의 내림차순 정렬
+    # result.sort(key=lambda x:x[0], reverse=True) # 정렬되어있는상태에서 조건대로 정렬하는거니까 자동정렬됨
+    result.sort(key=lambda x:(-x[0],x[1]))
+    for i in result:
+        answer.append(i[1])
+    
+    return answer
 ##########################################
 ##########################################
 # 
@@ -27,7 +51,8 @@ def solution(N, stages):
     return result
 ##########################################    
 ##########################################
-# 풀이형식 거의 같음. 왜 난 런타임 에러났지?? 시간인가? 모르게네
+# 풀이형식 거의 같음. 왜 난 런타임 에러났지?? 시간인가? 모르겟네
+# => n=5, starges=[2] result=[2,1,3,4,5]나와야하는데 이렇게하면result=[2,1]만나옴
 
 # def solution(N, stages):
 #     answer = []
