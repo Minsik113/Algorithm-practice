@@ -16,6 +16,7 @@ Dab = min(Dab, Dak + Dkb)
 2/ i행 i열
 1,2번빼고 나머지 위치에 대한 테이블정보를 갱신해주면됨.
 
+55분20초 https://www.youtube.com/watch?v=acqm9mM1P6o&list=PLRx0vPvlEmdAghTr5mXQxGpHjWqSz0dgC&index=7
 '''
 INF = int(1e9)
 
