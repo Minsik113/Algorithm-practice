@@ -1,3 +1,14 @@
+'''
+7 8
+1 2
+1 5
+2 3
+2 6
+3 4
+4 7
+5 6
+6 4
+'''
 from collections import deque
 
 v, e = map(int, input().split())
