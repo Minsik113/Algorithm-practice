@@ -11,8 +11,9 @@
 n = int(input())
 array = list(map(int, input().split()))
 array.sort()
-count = 1
-result = 0
+
+count = 1 # 현재 그룹원 수
+result = 0 # 총 그룹 수
 
 for pos in range(len(array)):
     if count == array[pos]:

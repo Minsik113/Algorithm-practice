@@ -1,20 +1,21 @@
 '''
-작은 수 부터 그룹 묶고 못묶으면 끝내면 최댓값 출력가능하다
-1. 리스트 오름차순
-2. 리스트[i]값과 count로 적절히 비교
+00 00 00 
+~
+N 59 59 
+까지 3이 하나라도 포함되면 경우의 수 증가.
 
+모든 경우의 수는? 
+
+24 x 60 x 60
 '''
+
 n = int(input())
-array = list(map(int, input().split()))
-array.sort()
 
-result = 0
-count = 1
-for i in range(len(array)):
-    if array[i] == count:
-        result += 1
-        count = 1
+count = 0
 
-    else:
-        count += 1
-print(result)
+for i in range(n+1):
+    for j in range(60):
+        for k in range(60):
+            if '3' in (str(i)+str(j)+str(k)):
+                count += 1
+print(count)
