@@ -1,0 +1,20 @@
+n = 5 # 데이터 개수
+m = 5 # 찾고자 하는 부분합 m
+data = [1,2,3,2,5]  # 전체 수열
+
+count = 0
+interval_sum = 0
+end = 0
+
+# start 를 차례대호 증가시키며 바놉ㄱ
+for start in range(n):
+    # end를 가능한 만큼 이동시킨다
+    while interval_sum < m and end < m:
+        interval_sum += data[end]
+        end += 1
+    # 부분합이 m일 떄 카운트 증가
+    if interval_sum == m:
+        count += 1
+    interval_sum -= data[start]
+    
+print(count)
