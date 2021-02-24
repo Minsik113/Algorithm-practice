@@ -1,45 +1,54 @@
 '''
 완전탐색 -> 값 찾기?
 N=10^3이다. 
-1. 모든 조합 계산한다.
-2. i개의 조합을 찾기전에 pos못찾으면 pos가 정답임.
--> 그다음은 최소한 pos보다 더 큰수가 제일 작은수이기 때문이다.
+풀이1. 앞에서부터 나오는 수 체크 
+풀이2. 나올 수 있는 모든 조합 체크  - 내풀이
+
+풀이1)
+data.sort()
+target = 1
+for x in data:
+    if target < x 라면 끝
+    else target += x
+
+target += x 란 target이 3이라면 1,2,3동전이 있다는 뜻으로 
+1~5까지 만들 수 있으므로 target=6으로 바꾸라 라는 의미
+
 '''
+##########################################
+##########################################
+# 다시풀기
+# n = int(input())
+# data = list(map(int, input().split()))
+# data.sort()
+
+# target = 1
+# for x in data:
+#     # 만들 수 없는 금액
+#     if target < x:
+#         break
+#     target += x
+    
+# print(target)
+
+##########################################
+##########################################
+# 조합으로 풀음. 시간안에 안되려나? -> n = 1000까지임. 안됨. 100C50 만 해도 못품.
+# nC1 + ... nCn
 # from itertools import combinations
 
 # n = int(input())
-# coins = list(map(int, input().split()))
-# pos = 1 # 1원부터 없는 수 찾을것이다.
-# coin_type = set()
-
-# # 동전 넣어줌
-# for i in range(len(coins)):
-#     target = coins[i]
-#     if target not in coin_type:
-#         coin_type.add(target)
-
-# # pos로 어디부터 찾을지본다
-# for i in range(1, max(coins)): # 1부터 제일큰 코인값까지 없는위치찾는다.
-#     if i not in coin_type:
-#         pos = i
-#         pos += 1
-#         break
-
-# # pos가 들어있어야함.
-# flag = False
+# array = list(map(int, input().split()))
+# result = set()
+# for i in range(1,n+1):
+#     for j in combinations(array,i):
+#         sub_sum = sum(j)
+#         result.add(sub_sum)
+# # print(result)
+# count = 1
 # while True:
-#     if flag:
+#     if count in result:
+#         count += 1
+#     else:
+#         print(count)
 #         break
-#     for i in range(2, n): # pos가 동전조합에 있으면 나옴.
-#         print(list(combinations(coins, i)))
-#         for j in list(combinations(coins, i)): # 2~n개로 조합 짤것이다.
-#             value = sum(j)
-#             if value not in coin_type:
-#                 coin_type.add(value)
-#         print('종류: ',coin_type)
-#         print('찾는수:',pos)
-#         if pos in coin_type: # pos가 있다면 연속된수가 어디까지있나봄.
-            
-#             break
-
-# print('정답:',pos)

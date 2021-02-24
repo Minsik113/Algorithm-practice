@@ -1,32 +1,36 @@
 '''
 음식의종류 ~2000개
 걸리는시간 ~1000초
-(i초에,음식개수) - ex. (1초걸리는음식,8개) (10초걸리는음식,140개) (1000초,10개)
-1. 초당 음식개수 저장
-2. k가 음식의 개수보다 적으면 바로 k출력 @@
-3. k가 음식의 개수보다 많으면? -> 1초이상인 음식들 다 빼봄  k -= 총음식수
-4. k가 2초이상음식수보다 많으면? -> 2초이상인 음식들 다뺴봄 k -= 2초이상음식수
-5. 3,4반복
-6. k가 i초이상음식수보다 많으면? -> i초이상인 음식들 하나씩 뺴봄.
-7. k가 i초이상음식수보다 적으면? -> i초인애들중에서 앞에서 k번째있는거
+
 '''
+# import heapq
+
+# # food_time[i] = i+1번음식이 걸리는시간
 # def solution(food_times, k): # k초에는 음식 안먹음. 
-#     answer = 0
-#     if k <= len(food_times):
-#         if k == len(food_times):
-#             return 1
-#         return k+1
-#     # 걸리는시간 1~1000초니까 각초당 음식이 몇개인지 파악
-#     food_count = [0] * 1001
-#     for i in food_times:
-#         food_count[i] += 1
-#     # 음식의 종류
-#     food_type = len(food_times)
-#     k -= food_type # 전체시간 - 1초이상개수 빼줌.
-#     num = 2
-#     # while True:
-# # https://programmers.co.kr/learn/courses/30/lessons/42891
+#     # 예외처리
+#     if sum(food_times) <= k:
+#         return -1
+
+#     h = []
+#     length = len(food_times)
+#     for i in range(length):
+#         heapq.heappush(h, (food_times[i],i+1)) # (음식시간,번호)
+    
+#     sum_value = 0 # 먹기위해 사용하는 시간
+#     previous = 0 # 직전에 다 먹은 음식 시간
+    
+#     # sum_value + (현재의 음식시간 - 이전 음식 시간) * 현재 음식 개수 와 K비교
+#     while sum_value + ((h[0][0] - previous)*length) <= k:
+#         now = heapq.heappop(h)[0]
+#         sum_value += (now - previous) * length
+#         length -= 1 # 다 먹은 음식 제외
+#         previous = now # 이전 음식 시간 재설정
+    
+#     # 남은 음식중 몇 번째 음식인지 확인
+#     result = sorted(h, key=lambda x:x[1]) # 음식번호로 정렬
+#     return result[(k-sum_value)%length][1]
         
-        
+    
+    
 
 
