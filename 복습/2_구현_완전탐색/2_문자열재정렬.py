@@ -8,6 +8,21 @@
 '''
 ##########################################
 ##########################################
+# ord이용 - 아래ord풀이보다 나음.
+data = input()
+
+num = 0
+alpha = []
+for x in data:
+    if ord(x)-ord('A') < 0: # 숫자라면
+        num += int(x)
+    else:
+        alpha.append(x)
+alpha.sort()
+print(''.join(map(str,alpha)) + str(num))
+
+##########################################
+##########################################
 # isalpha()이용하기
 data = input()
 result = []

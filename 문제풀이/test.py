@@ -1,12 +1,15 @@
-n = int(input())
-data = list(map(int, input().split()))
-data.sort()
+'''
+ord('1') = 49
+ord('a') = 65
+'''
+data = input()
 
-target = 1
+num = 0
+alpha = []
 for x in data:
-    # 만들 수 없는 금액
-    if target < x:
-        break
-    target += x
-    
-print(target)
+    if ord(x)-ord('A') < 0: # 숫자라면
+        num += int(x)
+    else:
+        alpha.append(x)
+alpha.sort()
+print(''.join(map(str,alpha)) + str(num))
