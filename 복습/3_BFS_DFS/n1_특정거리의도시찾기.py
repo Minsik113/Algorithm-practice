@@ -15,38 +15,74 @@ m개의 도로
 '''
 ##########################################
 ##########################################
-# 내풀이 - queue에 (도시,level) 넣음
+# 다시품
 from collections import deque
 
-n, m, k, x = map(int, input().split())
-array = [[] for i in range(n+1)] # 1~n까지의 연결리스트 생성
+# 도시개수, 도로개수, 찾는거리값, 시작도시
+n, m, k, start = map(int, input().split())
+graph = [[] for i in range(n+1)] # 1~n
+# 맵 입력
 for i in range(m):
     a, b = map(int, input().split())
-    array[a].append(b)
+    graph[a].append(b)
 
+# 거리찾기
 visited = [False] * (n+1)
 result = []
-def bfs(start):
+def bfs(graph, start, visited):
+    global result
     q = deque()
-    q.append((start,0))
+    q.append((0,start))
     visited[start] = True
     while q:
-        vv = q.popleft()
-        v, level = vv[0], vv[1]
+        level, v = q.popleft()
         if level == k:
             result.append(v)
-        for i in array[v]:
+        for i in graph[v]:
             if not visited[i]:
-                q.append((i,level+1))
                 visited[i] = True
+                q.append((level+1,i))
 
-bfs(x)
-if result:
-    result.sort()
-    for i in result:
-        print(i)
-else:
+bfs(graph, start, visited)
+result.sort()
+if len(result) == 0:
     print(-1)
+for i in result:
+    print(i)
+##########################################
+##########################################
+# 내풀이 - queue에 (도시,level) 넣음
+# from collections import deque
+
+# n, m, k, x = map(int, input().split())
+# array = [[] for i in range(n+1)] # 1~n까지의 연결리스트 생성
+# for i in range(m):
+#     a, b = map(int, input().split())
+#     array[a].append(b)
+
+# visited = [False] * (n+1)
+# result = []
+# def bfs(start):
+#     q = deque()
+#     q.append((start,0))
+#     visited[start] = True
+#     while q:
+#         vv = q.popleft()
+#         v, level = vv[0], vv[1]
+#         if level == k:
+#             result.append(v)
+#         for i in array[v]:
+#             if not visited[i]:
+#                 q.append((i,level+1))
+#                 visited[i] = True
+
+# bfs(x)
+# if result:
+#     result.sort()
+#     for i in result:
+#         print(i)
+# else:
+#     print(-1)
 
 ##########################################
 ##########################################

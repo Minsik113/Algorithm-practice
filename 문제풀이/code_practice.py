@@ -1,51 +1,51 @@
 '''
-1~N번 까지 볼링공이있음
-1. 무게가 1일때 고를 수 있는 경우 + 무게가 2일때 고를 수 있는 경우 ... 
-2. 무게가 m까지 1번 반복
-
-풀이 1) O(n^2)
-n = 10^3 임
-1. N^2 = 10^6 충분.
-2. a보다 무게 큰거 나올 때마다 더해준다.
-
-풀이 2) O(n + m)
-
+1. bfs로 바이러스 증식.
+-> 번호가 낮은것부터 증식해야함. heapq?
+2. s초가 지난 후 (x,y)에있는 바이러스 번호찾기
+3. (x,y)가 오염되지 않았다면 0 출력
 '''
+import heapq
+from collections import deque
 
-##########################################
-##########################################
-# 
-n, m = map(int, input().split())
-data = list(map(int, input().split()))
+n, k = map(int, input().split())
+array = [list(map(int, input().split())) for _ in range(n)]
+s, fx, fy = map(int,input().split()) 
 
-count = 0
+h = []
+# 시작위치찾는데 200*200 = 4만
+max_virus = 0
 for i in range(n):
     for j in range(n):
-        if i == j :
-            continue
-        if data[i] < data[j]:
-            count += 1
-print(count)
+        if array[i][j] != 0:
+            h.append((array[i][j],i,j,0))
+            max_virus = max(max_virus, array[i][j])
+h = sorted(h, key=lambda x:x[0]) # virus 기준으로 오름차순정렬
+# 정렬된 리스트 -> deque()로
+qq = deque()
+for i in h:
+    qq.append(i)
 
-
-##########################################
-##########################################
-# 
-n, m = map(int, input().split())
-data = list(map(int, input().split()))
-check = [0] * (m+1)
-
-# 1~m까지 볼링공이 몇개씩 들어있는지 체크
-for i in data:
-    check[i] += 1
-
+def bfs(array, qq):
+    global max_virus, result
+    while qq:
+        virus, x, y, time = qq.popleft()
+        # 바이러스 퍼트리기 전에 확인한다.
+        if time == s:
+            return
+        dx = [-1,1,0,0]
+        dy = [0,0,-1,1]
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx < 0 or ny < 0 or nx >= n or ny >= n:
+                continue
+            if array[nx][ny] == 0:
+                array[nx][ny] = virus
+                qq.append((virus,nx,ny,time+1))
+                
+# 바이러스 순서대로 bfs진행
 result = 0
-for i in range(1,m+1):
-    n -= check[i] # 무게가 i인 볼링공의 개수(A가 선택할 수 있는 개수) 제외
-    result += check[i] * n # B가 선택하는 경우의 수와 곱한다.
-print(result)
-
-
-
-
+bfs(array, qq)
+# print(array)
+print(array[fx-1][fy-1])
 

@@ -1,20 +1,32 @@
-'''
-x 집 치킨집 0 1 2
-(1,1) ~ nxn -> 그냥 0부터시작해도될듯
-n = 50
+# from itertools import combinations
 
-50x50 = 2500
-모든치킨집중 m 개선택
-13CM = 10만안됨.
-그리고 각 치킨집에서 모든 집까지 거리합을 dist라고한다
-(dist2, cx, cy) 
-=> dist짧은순으로 치킨집 m개 뽑아서 리스트에 넣는다.
-if m > len(chickens):
-    chickens모두다넣음
-else:
-    개수만큼넣음
+# n, m = map(int, input().split())
+# chicken, house = [], []
 
-뽑은 치킨집에서 각 집까지의 치킨거리를 구한다.
-result = 모든집의 치킨거리 합
+# for r in range(n):
+#     data = list(map(int, input().split()))
+#     for c in range(n):
+#         if data[c] == 1:
+#             house.append((r,c)) # 집
+#         elif data[c] == 2:
+#             chicken.append((r,c)) # 치킨집
+# # 모든 치킨집 중에서 m 개의 치킨집을 뽑음
+# candidates = list(combinations(chicken,m))
 
-'''
+# # 치킨거리의 합을 계산하는 함수
+# def get_sum(candidates):
+#     result = 0
+#     # 모든 집에 대하여
+#     for hx, hy in house:
+#         # 가장 가까운 치킨집찾자
+#         temp = int(1e9)
+#         for cx, cy in candidates:
+#             temp = min(temp, abs(hx-cx)+abs(hy-cy))
+#         # 가장 가까운 치킨집까지의 거리 더하기
+#         result += temp
+#     return result
+# result = int(1e9)
+# for candidate in candidates:
+#     result = min(result, get_sum(candidate))
+# print(result)
+
