@@ -1,32 +1,41 @@
-from itertools import combinations
+'''
+100C11 은 수가 너무큼. Permutation못쓴다.
+'''
+T = int(input())
+number = list(map(int, input().split()))
+oper_num = list(map(int, input().split()))
+oper_type = ['+','-','*','/']
 
-n, m = map(int, input().split())
-chicken, house = [], []
+# 전체 연산자: 종류 - 개수
+operators = dict()
+for i in range(4):
+    operators[oper_type[i]] = oper_num[i]
 
-for r in range(n):
-    data = list(map(int, input().split()))
-    for c in range(n):
-        if data[c] == 1:
-            house.append((r,c)) # 집
-        elif data[c] == 2:
-            chicken.append((r,c)) # 치킨집
-# 모든 치킨집 중에서 m 개의 치킨집을 뽑음
-candidates = list(combinations(chicken,m))
-
-# 치킨거리의 합을 계산하는 함수
-def get_sum(candidates):
-    result = 0
-    # 모든 집에 대하여
-    for hx, hy in house:
-        # 가장 가까운 치킨집찾자
-        temp = int(1e9)
-        for cx, cy in candidates:
-            temp = min(temp, abs(hx-cx)+abs(hy-cy))
-        # 가장 가까운 치킨집까지의 거리 더하기
-        result += temp
-    return result
-result = int(1e9)
-for candidate in candidates:
-    result = min(result, get_sum(candidate))
-print(result)
-
+def check(depth):
+    if operators[row[depth]] > 0:
+        return True
+    return False
+# 가능한 연산자를 뽑자.
+max_value = 0
+min_value = int(1e9)
+def solve(depth):
+    global max_value
+    global min_value
+    if depth == T-1: # 연산자 골라졌음. 계산하자
+        prev = number[0]
+        for i in range(T-1):
+            prev = int(eval(str(prev) + row[i] + str(number[i+1])))
+        max_value = max(max_value, prev)
+        min_value = min(min_value, prev)
+        return
+        
+    for i in range(4): # 연산자 하나씩 넣어본다
+        row[depth] = oper_type[i] 
+        if check(depth): # 가능하다면
+            operators[row[depth]] -= 1
+            solve(depth+1) # 다음꺼봄
+            operators[row[depth]] += 1
+row = [''] * (T-1)
+solve(0)
+print(max_value)
+print(min_value)
