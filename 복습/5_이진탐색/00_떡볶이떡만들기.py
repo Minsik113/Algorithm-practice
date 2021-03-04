@@ -1,4 +1,33 @@
 '''
+1. 떡 길이를 정렬시킴
+2. 제일 짧은 떡, 제일 긴 떡
+3. 떨어진 떡의 길이합(total)이 m보다 크거나같으면:
+result에 max(현재, 지금 자른길이)를 저장하고, 자르는 기준을 길게하여 더 잘라본다
+4. 떨어진 떡의 길이합이 m보다 작으면:
+길게해서 본다.
+'''
+n, m = map(int, input().split())
+array = list(map(int, input().split()))
+
+# array.sort() # 2천만 시간 => 할 필요없음
+# 이진탐색시작
+start = 0 # 0 ~ max(떡)의 길이 사이의 값을 찾을것이므로
+end = max(array) 
+result = 0
+while start <= end:
+    mid = (start + end) // 2  # 중간 길이로 자름
+    total = 0
+    for i in array:
+        if i > mid:
+            total += i - mid
+    if total >= m: # 요청한 떡의 길이보다 많이 남았다면 길게해서 더 잘라본다
+        result = mid
+        start = mid + 1
+    else:
+        end = mid - 1
+print(result)
+
+'''
 n떡개수 10^6
 ->O(nlogn)정렬
 m요청한 떡길이 ~ 2x10^9

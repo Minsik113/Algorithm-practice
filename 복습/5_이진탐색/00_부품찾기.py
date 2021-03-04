@@ -12,6 +12,50 @@ O((N+M)logN)
 '''
 ##########################################
 ##########################################
+# 3/4 복습 이진탐색 O(NlogN + MxlogN)
+_ = int(input())
+dataset = list(map(int, input().split()))
+_ = int(input())
+numberset = list(map(int, input().split()))
+
+def search(dataset, target):
+    start = 0
+    end = len(dataset)
+    while start <= end:
+        mid = (start + end) // 2
+        if dataset[mid] == target:
+            return True
+        elif dataset[mid] > target: # 찾는값보다 크면 범위 줄인다
+            end = mid - 1
+        else: 
+            start = mid + 1
+    return False
+
+# 이진 탐색시작
+dataset.sort()
+for number in numberset:
+    if search(dataset, number):
+        print("yes", end=' ')
+    else:
+        print("no", end=' ')
+##########################################
+##########################################
+# 3/4 복습 계수정렬사용
+n = int(input())
+count = [0] * (1000001)
+
+for i in input().split():
+    count[int(i)] += 1
+
+m = int(input())
+numberset = list(map(int, input().split()))
+for i in numberset:
+    if count[i] > 0 :
+        print('yes', end=' ')
+    else:
+        print('no',end=' ')
+##########################################
+##########################################
 # set사용
 import sys
 input = sys.stdin.readline

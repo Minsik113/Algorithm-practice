@@ -1,10 +1,38 @@
+##########################################
+##########################################
+# 3/4 복습
+'''
+조건: O(logN)으로 해결해라
+정렬된 배열이니까 이진탐색하자
+'''
+n = int(input())
+array = list(map(int, input().split()))
+
+start = 0 # 시작 인덱스
+end = n-1
+
+flag = False
+while start <= end:
+    mid = (start + end) // 2 # 중간 인덱스
+    if mid == array[mid]:
+        print(mid)
+        flag = True
+        break
+    elif mid < array[mid]: # 찾은곳에 큰 값이있으면 더 작은곳을 봐야함
+        end = mid -1
+    else:
+        start = mid + 1
+
+if not flag:
+    print(-1)
+##########################################    
+##########################################
+#
 '''
 1. n개 10^6
 2. n개에서 고정점이 있는지 찾자. O(logN)으로 구현해라.
 -> 이진탐색하라는 이야기.
-
 '''
-
 n = int(input())
 array = list(map(int, input().split()))
 
