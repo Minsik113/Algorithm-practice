@@ -23,27 +23,32 @@ while len(array) != 1:
     heapq.heappush(array, c)
 
 print(total)
-
 ##########################################
 ##########################################
 # 내풀이
-import heapq # 그당시 제일 작은거 2개 더해야함
+'''
+리스트들 중 제일작은 2개를 더해서 다시넣는다.
+1. 우선순위큐(heapq)쓰면될듯
+2. len(q) == 1이면 종료
+'''
+import sys, heapq
+input = sys.stdin.readline
 
 n = int(input())
-array = []
+h = []
 for i in range(n):
-    heapq.heappush(array, int(input()))
+    heapq.heappush(h, int(input()))
 
-if n==1:
+# 예외처리
+if n == 1:
     print(0)
-    exit()
+    exit(0)
 
-total = 0
-while len(array) >= 2:
-    a = heapq.heappop(array)
-    b = heapq.heappop(array)
-    total += a+b
-    # print(a,b,a+b,total)
-    heapq.heappush(array, a+b)
-
-print(total)
+# 탐색시작
+result = 0
+while (len(h) >= 2):
+    a = heapq.heappop(h)
+    b = heapq.heappop(h)
+    result += (a + b)
+    heapq.heappush(h, a + b)
+print(result)

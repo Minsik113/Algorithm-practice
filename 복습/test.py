@@ -1,46 +1,28 @@
-array = [7,5,9,0,3,1,6,2,4,8] # 10개
+'''
+리스트들 중 제일작은 2개를 더해서 다시넣는다.
+1. 우선순위큐(heapq)쓰면될듯
+2. len(q) == 1이면 종료
 
-length = len(array)
+'''
 
-# 퀵정렬
-def quick_sort(array, start, end):
-    if start >= end: # 정렬해야할 원소가 1개면 종료
-        return
-    pivot = start # 첫번쨰 원소를 pivot으로 삼자
-    left = start + 1
-    right = end
-    while (left <= start): # 지금 정한 pivot에 대해서 1cycle수행
-        # 앞부터는 피벗보다 큰 데이터를 찾을 때까지 반복
-        while (left <= end and array[left] <= array[pivot]):
-            left += 1
-        # 뒤부터는 피벗보다 작은 데이터를 찾을 때까지 반복
-        while (right > start and array[right] >= array[pivot]):
-            right += 1
-        if (left > right): # 엇갈렸다면 작은데이터와 피벗 교체
-            array[right], array[pivot] = array[pivot], array[right]
-        else:
-            array[left], array[pivot] = array[pivot], array[left]
-    quick_sort(array, start, right-1)
-    quick_sort(array, right+1, end)
+import sys, heapq
+input = sys.stdin.readline
 
-quick_sort(array, 0, length-1)
-print(array)
+n = int(input())
+h = []
+for i in range(n):
+    heapq.heappush(h, int(input()))
 
+# 예외처리
+if n == 1:
+    print(0)
+    exit(0)
 
-# 삽입정렬 
-# for i in range(1, length):
-#     for j in range(i, 0, -1):
-#         if array[j] < array[j-1]:
-#             array[j], array[j-1] = array[j-1], array[j]
-#         else:
-#             break
-# print(array)
-
-# 선택정렬
-# for i in range(length):
-#     min_index = i
-#     for j in range(i+1, length):
-#         if array[min_index] > array[j]:
-#             min_index = j
-#     array[min_index], array[i] = array[i], array[min_index] 
-# print(array)
+# 탐색시작
+result = 0
+while (len(h) >= 2):
+    a = heapq.heappop(h)
+    b = heapq.heappop(h)
+    result += (a + b)
+    heapq.heappush(h, a + b)
+print(result)

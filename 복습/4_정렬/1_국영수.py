@@ -21,7 +21,6 @@ for i in range(n):
 s_array = sorted(array,key= lambda x: (-int(x[1]), int(x[2]), -int(x[3]), x[0]))
 for i in s_array:
     print(i[0])
-
 ##########################################
 ##########################################
 # 나
@@ -29,7 +28,7 @@ n = int(input())
 array = []
 for i in range(n):
     name, kor, eng, math = map(str, input().split())
-    array.append((name,int(kor), int(eng), int(math)))
+    array.append((name, int(kor), int(eng), int(math)))
 
 # 국어점수 내림차순으로 정렬함
 s_array = sorted(array,key= lambda x: (-x[1],x[2],-x[3],x[0]))

@@ -1,54 +1,60 @@
-'''
-'''
+##########################################
+##########################################
+# 3/4 복습 
+# dict()에 실패율 저장
 def solution(N, stages):
-    answer = []
-    # 1. 사용자마자 어디 스테이지를 도전중인지 체크하자
-    check = [0] * (N+2) # check[i] = i번째 스테이지에 있는사람 check[N+2] = 다깬사람
-    percentage = [0] * (N+2)
+    result = dict()
+    # 1번. stages에 사람 몇명이나 있는지 확인
+    number_list = [0] * (N+2)
+    length = 0 # 총원 저장
     for i in stages:
-        check[i] += 1
-    user_num = sum(check)
+        number_list[i] += 1
+        length += 1
+    # 2번. 실패율 계산
+    for stage in range(1, N+1):
+        if length != 0:
+            result[stage] = number_list[stage] / length
+            length -= number_list[stage]
+        else:
+            result[stage] = 0
     
-    # 2. 실패율 계산하자
-    result = []
-    for i in range(1, N+1): # 1~ N단계까지 (N+1은 안봐도됨)
-        if user_num != 0:
-            percentage[i] = check[i] / user_num
-            user_num -= check[i]
-        result.append((percentage[i],i)) # (실패율, 스테이지)
-    print(result)
-    # 3. 실패율의 내림차순 정렬
-    # result.sort(key=lambda x:x[0], reverse=True) # 정렬되어있는상태에서 조건대로 정렬하는거니까 자동정렬됨
-    result.sort(key=lambda x:(-x[0],x[1]))
-    for i in result:
-        answer.append(i[1])
-    
-    return answer
+    return sorted(result, key=lambda x:result[x], reverse=True)
 ##########################################
 ##########################################
-# 
+# 3/4 복습 
+# []에 실패율저장
+'''
+실패율 = 스테이지에 도달했으나 아직클리어 못한 플레이어수 / 스테이지에 도달한 플레이어 수
+-> 실패율이 높은것부터 내림차순으로 스테이지 번호 리턴
+(단, 실패율 같으면 '스테이지 번호 낮은 것'부터)
+20만 -> 계수정렬사용해야함. 
+
+1. 각 스테이지에 몇 명이 있는지 저장하는 리스트 count_num
+2. 실패율 저장할 리스트 fail_list에서 실패율 계산하고, 총원수정(총원(N) - count_num[i])
+
+'''
 def solution(N, stages):
     answer = []
-    length = len(stages)
-    # 1. 각 스테이지에 몇명이 있는가
-    for i in range(1,N+1):
-        # 해당 스테이지에 머물러 있는 사람 수
-        count = stages.count(i)
-        fail = 0
-        # 실패율 계산
-        if length == 0:
-            fail = 0
-        else:
-            fail = count / length
-        # (스테이지번호,실패율)
-        answer.append((i,fail))
-        length -= count
+    fail_list = [] # 실패율 저장
+    count_num = [0] * (N+2) # 0~N+1까지
+    total = 0 # 총원
+    # 1번. 각 스테이지에 몇명이 있는가
+    for i in stages: 
+        count_num[i] += 1
+        total += 1
     
-    # 3. 정렬 시작
-    answer = sorted(answer, key=lambda x:(-x[1],x[0]))
-    # s_array = sorted(stage_total, key=lambda x:(-x[1],x[0])) # 스테이지 실패율(내림차)순. 같으면 숫자오름차순
-    result = [i[0] for i in answer]
-    return result
+    # 2번. 실패율 계산하자
+    for i in range(N+2):
+        if total == 0: # 나머지 뒤에 실패율을 0 으로 넣는다.
+            for j in range(i,N+2):
+                fail_list.append((0,j))
+            break
+        fail_list.append((count_num[i] / total, i)) # (실패율,스테이지번호)
+        total -= count_num[i]
+    # 3번. 1번~N번까지 실패율 순서로 정렬
+    s = sorted(fail_list[1:-1], key=lambda x:(-x[0],x[1])) #실패율내림차순, 실패율같으면 스테이지오름차순
+    answer = [i[1] for i in s]
+    return answer
 ##########################################    
 ##########################################
 # 풀이형식 거의 같음. 왜 난 런타임 에러났지?? 시간인가? 모르겟네
