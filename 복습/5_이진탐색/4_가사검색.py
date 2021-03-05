@@ -11,7 +11,7 @@
 # 4번. 3번이 존재한다면 대입해서 하나씩본다
 # 4-1번. 하나라도 다르면 다른것임.
 # 5번. 3번이 존재안하면 0 리턴
-# '''
+# '''z
 # from bisect import bisect_left, bisect_right
 
 # # target과 같은 길이의 시작index와 끝index를 찾는다. (이때, 끝index는 -1 해야함)(다음위치기 때문에)

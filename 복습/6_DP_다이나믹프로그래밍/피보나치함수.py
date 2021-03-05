@@ -1,12 +1,28 @@
-d = [0] * 100
+'''
+단순 재귀호출로 피보나치수열을 해결하면 O(2^n)이 나온다.
+-> 너무 큼
+'''
+# 탑다운 O(N)
+# d = [0] * 100
 
-def fibo(x):
-    if x == 1 or x == 2:
-        return 1
+# def fibo(x):
+#     if x == 1 or x == 2:
+#         return 1
 
-    if d[x] != 0:
-        return d[x]
-    d[x] = fibo(x-1) + fibo(x-2)
-    return d[x]
+#     if d[x] != 0:
+#         return d[x]
+#     d[x] = fibo(x-1) + fibo(x-2)
+#     return d[x]
 
-print(fibo(10))
+# print(fibo(10))
+######################################
+######################################
+# 보텀 업 O(N)
+d = [0] * (100) # 0~99까지만 계산하려고
+d[1] = 1
+d[2] = 1
+n = 99 
+
+for i in range(3, n+1): # 99까지만 계산하려고
+    d[i] = d[i-1] + d[i-2]
+print(d[n])
