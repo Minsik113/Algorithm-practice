@@ -1,14 +1,32 @@
-'''
-dp[i,j] = (i,j)위치에서 의 (값,행위치)를 저장
-1. 열이 1증가할때, 이전행에서 -1 0 1 만큼 이동가능하다
-2. 열이 끝까지 도달했을 때 값의 최대값을 고르면 됨
-
-1. dp[]
-'''
-test = int(input())
-for _ in range(test):
+for _ in range(int(input())):
     n, m = map(int, input().split())
-    d = [[(0,0)]*n for _ in range(m)] # 
-    print(d)
+    array = list(map(int, input().split()))
+    # dp 테이블 초기화
+    dp = []
+    index = 0
+    for i in range(n):
+        dp.append(array[index : index+m])
+        index += m
+    # 점화식 dp 시작
+    for j in range(1, m): # 열부터 계산할것이므로 이렇게함
+        for i in range(n):
+            # '왼쪽 위'에서 오는 경우
+            if i == 0: 
+                left_up = 0
+            else:
+                left_up = dp[i-1][j-1]
+            # '왼쪽 아래'에서 오는 경우
+            if i == n-1:
+                left_down = 0
+            else:
+                left_down = dp[i+1][j-1]
+            # '왼쪽'에서 오는 경우
+            left = dp[i][j-1]
+            dp[i][j] = dp[i][j] + max(left_up, left_down, left)
+    result = 0
+    for i in range(n):
+        result = max(result, dp[i][m-1])
+    print(result)
+
 
 
