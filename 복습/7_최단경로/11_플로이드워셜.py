@@ -4,8 +4,8 @@
 (DP유형에 속한다)
 -> 점화식에 맞게 3중반복문을 이용하여 2차원 테이블을 갱신한다.
 
-O(N^3)
-: 각 단계마다 O(N^2)의 연산.
+O(N^3) 500개아래로 보통 주어줌. 
+: 각 단계마다 O(N^2)의 연산. -> 3중반복문
 -> 즉, 노드의 개수가 적은 상황에서 효과적이며, 일반적으로 dijkstra사용
 
 Dab = min(Dab, Dak + Dkb)
@@ -38,7 +38,7 @@ for _ in range(m):
 
 # 점화식에 따라 플로이드 워셜 실행
 for k in range(1, n+1):
-    for a in range(1, n+1):
+    for a in range(1, n+1): # a->b 로가는데 k를 거치는거
         for b in range(1, n+1):
             graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
 
