@@ -29,7 +29,7 @@ def dijkstra(start):
 
     while h:
         dist, now = heapq.heappop(h)
-        if distance[now] < dist: # 볼필요없음
+        if distance[now] < dist: # 이미 본애라면 안봐도됨. 우선순위큐니까
             continue
         for i in graph[now]:
             cost = dist + i[1]
