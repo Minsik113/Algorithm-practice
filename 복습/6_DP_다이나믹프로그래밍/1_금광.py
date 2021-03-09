@@ -1,4 +1,37 @@
-
+##########################################
+##########################################
+# 3/9 복습
+for _ in range(int(input())):
+    n, m = map(int, input().split()) # n행 m열
+    data = list(map(int, input().split())) # m개씩 n행으로만들어야함
+    
+    # 1. 2차원 dp테이블 만들기 dp = n x m
+    dp = []
+    index = 0
+    for i in range(n):
+        dp.append(data[index*m:index*m+m])
+        index += 1
+    # print(data)
+    # print(dp)
+    # 2. 열 순서로 본다.
+    for j in range(1, m): # i행 j열
+        for i in range(n):
+            # case1 '맨위 행'
+            if i == 0:
+                dp[i][j] = dp[i][j] + max(dp[i][j-1], dp[i+1][j-1])
+            # case2 '맨아래 행'
+            elif i == n-1:
+                dp[i][j] = dp[i][j] + max(dp[i][j-1], dp[i-1][j-1])
+            # case3 '중간'
+            else:
+                dp[i][j] = dp[i][j] + max(dp[i-1][j-1], dp[i][j-1], dp[i+1][j-1])
+    # print(dp)
+    # 3. 최대값
+    max_value= 0 
+    for i in range(n):
+        if max_value < dp[i][m-1]:
+            max_value = dp[i][m-1]
+    print(max_value)
 ##########################################
 ##########################################
 # 깔끔하게 푼 코드

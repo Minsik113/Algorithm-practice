@@ -1,23 +1,27 @@
+'''
+거꾸로봐라?
+dp[i] = 끝날때까지 가질 수 있는 최대 금액
+'''
 n = int(input())
-dp = []
-
+t = [] # 기간
+p = [] # 금액
 for _ in range(n):
-    dp.append(list(map(int, input().split())))
+    a, b = map(int, input().split())
+    t.append(a)
+    p.append(b)
 
-# 2번째 줄부터 본다
-for i in range(1, n):
-    for j in range(i+1):
-        # 왼쪽 위에서 내려오는 경우
-        if j == 0:
-            up_left = 0
-        else:
-            up_left = dp[i-1][j-1]
-        # 바로 위에서 내려오는 경우
-        if j == i:
-            up = 0
-        else:
-            up = dp[i-1][j]
-        # 최대합 저장
-        dp[i][j] = dp[i][j] + max(up_left, up)
-        
-print(max(dp[n-1]))
+# dp 초기화
+dp = [0] * (n+1) # dp[i] = i일에서 끝날때까지 가질 수 있는 최대금액
+
+# dp시작
+max_value = 0
+for i in range(n-1, -1, -1): # i는 현재 일
+    time = i + t[i] # 현재일수 + 걸리는기간
+    # 기간안에 못함
+    if time > n:
+        dp[i] = max_value
+    # 기간안에 함 -> 현재까지 최대 금액 저장
+    else:
+        dp[i] = max(max_value, dp[time] + p[i])
+        max_value = dp[i]
+print(max_value)
