@@ -1,53 +1,48 @@
 '''
-1번헛간 -> 제일거리가 먼 헛간 출력
-다익스트라로 distance테이블 보면 끝
+위상정렬 문제이다.
+
+edges[a].append(~~)
+indegree[a] 
+indegree 0 인거부터 쭉보면서 최소걸리는시간구하며될듯?
 
 '''
-import sys, heapq
-input = sys.stdin.readline
-INF = int(1e9)
 
-n, m = map(int, input().split())
-# 1번. 연결된 맵 정보를 저장할 리스트 생선한다
+from collections import deque
+
+n = int(input())
+
+# 1번. 차수 세기위해 선언
+indegree = [0] * (n+1)
+# 2번. 연결관계 저장하기 위해 선언
 graph = [[] for _ in range(n+1)]
-# 2번. 최단거리 저장할 리스트 생성
-distnace = [INF] * (n+1)
 
-# 3번. 맵정보 입력받음
-for _ in range(m):
-    a, b = map(int, input().split())
-    graph[a].append((b,1)) # a<->b 비용1
-    graph[b].append((a,1))
-
-# 4번. 다익스트라 시작
-def dijkstra(start):
-    h = []
-    heapq.heappush(h, (0, start)) # (노드까지거리, 노드)
-    distnace[start] = 0
-
-    while h:
-        dist, now = heapq.heappop(h)
-        if distnace[now] < dist: # 볼필요 없음. now 지나는 것보다 더 빠른길이 있다.
-            continue
-        for i in graph[now]: # 연결된애들의 거리 갱신할거 있는지 보자
-            cost = dist + i[1]
-            if cost < distnace[i[0]]: # 더 작다면 갱신한다
-                distnace[i[0]] = cost
-                heapq.heappush(h, (cost, i[0]))
-
-dijkstra(1)
-
-# 5번. distance테이블보자. 제일 거리먼것 찾아내자
-max_value = 0
-pos = -1
+# 3번. 맵 입력받는다
+time_list = [0] # 시간정보 입력
 for i in range(1, n+1):
-    if max_value < distnace[i]:
-        max_value = distnace[i]
-        pos = i
-# 6번. 같은거리를 가진 애들이 있는지 체크하자
-count = 0
+    data = list(map(int, input().split()))
+    time_list.append(data[0])
+    data = data[1:-1] # 비용과,-1은 뺀다.
+    for j in data:
+        graph[j].append(i) # j들을 다 수행해야 i를 들을 수 있다.
+        indegree[i] += 1 # j들을 다 수행해야 i를 들을 수 있다.
+
+# print(graph)
+# print(indegree)
+
+# 4번. 진입차수 0인것을 queue에 넣는다
+q = deque()
+for i in range(1,n+1):
+    if indegree[i] == 0:
+        q.append(i) # i번째 과목을 듣자.
+
+while q:
+    now = q.popleft()
+    
+    for i in graph[now]: # 연결된애들 보자
+        indegree[i] -= 1
+        if indegree[i] == 0: # 
+            q.append(i)
+            time_list[i] = max(time_list[i], time_list[now]+time_list[i])
+
 for i in range(1, n+1):
-    if distnace[i] == max_value:
-        count += 1
-print(distnace)        
-print(pos, max_value, count)
+    print(time_list[i])
