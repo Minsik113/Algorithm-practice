@@ -30,7 +30,4 @@
 #     result = sorted(h, key=lambda x:x[1]) # 음식번호로 정렬
 #     return result[(k-sum_value)%length][1]
         
-    
-    
-
 
