@@ -5,7 +5,23 @@
 '''
 ##########################################
 ##########################################
-# 다시품
+# 3/16 이전거를 바꿔줌
+# data = list(map(int, input()))
+# count = [0] * 2
+
+# pre = data[0] # 처음수
+# save = 0
+# for i in range(1, len(data)):
+#     if pre != data[i]: # 이전값과 다르면 
+#         count[pre] += 1 # 이전값의 count증가, 
+#         pre = data[i] # 이전값을 현재값으로
+# count[pre] += 1 # 마지막에 나온값
+
+# print(min(count))
+
+##########################################
+##########################################
+# 2/24 현재꺼를 바꿔줌
 arr = list(map(int, input()))
 # 0, 1 이 들어갈 변수
 check = [0] * 2
@@ -18,19 +34,4 @@ for i in range(1, len(arr)):
     if arr[i] != arr[i-1]:
         check[arr[i]] += 1
 print(min(check))
-##########################################
-##########################################
-# 
-# array = list(map(int, input()))
-# check = [0] * 2  # 연속된 0의개수 or 연속된 1의개수
-
-# prev = array[0]
-# check[prev] += 1
-
-# for i in range(1, len(array)):
-#     target = array[i]
-
-#     if prev != check: # 바뀐거잖아 -> 추가해줌
-#         check[target] += 1
-#     # 안바뀌면 넘어감.
-# print(min(check))
+print(check)
