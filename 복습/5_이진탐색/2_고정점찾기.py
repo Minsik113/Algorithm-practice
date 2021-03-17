@@ -1,5 +1,29 @@
 ##########################################
 ##########################################
+# 3/17 복습
+'''
+index = array[index]이면 array[index]출력
+'''
+n = int(input())
+data = list(map(int, input().split()))
+
+start = 0 # 시작 index
+end = len(data) - 1 # 끝 index
+save = -1
+while start <= end:
+    mid = (start + end) // 2
+
+    if data[mid] == mid:
+        save = mid
+        break
+    elif data[mid] > mid: # 값이 더 크면 더 아래쪽을봐야함
+        end = mid - 1
+    else: # 값이 작으니까 더 큰쪽을 봐야함
+        start = mid + 1
+    
+print(save)
+##########################################
+##########################################
 # 3/4 복습
 '''
 조건: O(logN)으로 해결해라

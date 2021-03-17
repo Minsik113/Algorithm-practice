@@ -20,47 +20,40 @@ else:
 # 3/4 복습 이진탐색 구현
 # m을 찾았을때 제일작은 index 찾는함수
 # m을 찾았을때 제일작은 index 찾는함수
-def front(data, taget):
+def front(data, target):
     start = 0
-    end = len(data) -1
-    save_index = -1
+    end = len(data) - 1
+    save = -1
     while start <= end:
         mid = (start + end) // 2
-        if data[mid] >= taget: # 찾은값이 target보다 크거나 같으면 작게해봄
-            save_index = mid
+        if data[mid] >= target:
+            save = mid
             end = mid - 1
         else:
             start = mid + 1
-    return save_index
-
-# m을 찾았을때 제일큰 index 찾는함수
-def last(data, taget):
+    return save
+def last(data, target):
     start = 0
-    end = len(data) -1
-    save_index = -1
+    end = len(data) - 1
+    save = -1
     while start <= end:
         mid = (start + end) // 2
-        if data[mid] >= taget: # 찾은값이 target보다 크거나 같으면 최대한 작은값 찾기위해 움직임
-            save_index = mid
+        if data[mid] >= target:
+            save = mid
             end = mid - 1
         else:
             start = mid + 1
-    return save_index
-
-# front_index와 last_index찾는 함수
+    return save
 def dif(data, m):
     a = front(data, m)
-    # 예외처리 (값이 존재하지 않는다.)
-    if a == -1: 
+    b = front(data, m+1)
+    if a == b:
         return -1
-    b = last(data, m+1)
-    if a == b: # 값없음
-        return -1
-    return b - a
+    else:
+        return b-a
 
 n, m = map(int, input().split())
 data = list(map(int, input().split()))
-
 result = dif(data, m)
 print(result)
 ##########################################
