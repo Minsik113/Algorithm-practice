@@ -1,4 +1,34 @@
-# 효율성 2개틀림.
+# from bisect import bisect_left, bisect_right
+
+# def count_by_range(a, left_value, right_value):
+#     left_index = bisect_left(a, left_value)
+#     right_index = bisect_right(a, right_value)
+#     return right_index - left_index
+
+# def solution(words, queries):
+#     answer = []
+#     array =[[] for _ in range(10001)]
+#     reversed_array = [[] for _ in range(10001)]
+    
+#     for word in words:
+#         array[len(word)].append(word) # 단어 삽입
+#         reversed_array[len(word)].append(word[::-1])
+    
+#     # 이진탐색을 해야하니까 각 리스트를 정렬한다.
+#     for i in range(10001):
+#         array[i].sort()
+#         reversed_array[i].sort()
+
+#     for q in queries: # 쿼리를 하나씩 보면서 수행한다.
+#         if q[0] != '?': # 접미사에 '?'붙음
+#             res = count_by_range(array[len(q)], q.replace('?','a'), q.replace('?','z'))
+#         else: # 접두사에 '?' 붙음
+#             res = count_by_range(reversed_array[len(q)], q[::-1].replace('?','a'), q[::-1].replace('?','z'))
+#         answer.append(res)
+    
+#     return answer
+
+# # 효율성 2개틀림.
 # '''
 # 찾는 단어수(10만) x 찾을곳(10만) = 너무많음. 
 # 10만 x O(log(len(words)))으로 줄여야함.
@@ -11,7 +41,7 @@
 # 4번. 3번이 존재한다면 대입해서 하나씩본다
 # 4-1번. 하나라도 다르면 다른것임.
 # 5번. 3번이 존재안하면 0 리턴
-# '''z
+# '''
 # from bisect import bisect_left, bisect_right
 
 # # target과 같은 길이의 시작index와 끝index를 찾는다. (이때, 끝index는 -1 해야함)(다음위치기 때문에)
