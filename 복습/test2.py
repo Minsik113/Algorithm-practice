@@ -1,43 +1,62 @@
-import sys
-input = sys.stdin.readline 
+n = int(input())
+k = int(input())
+data = [[0] * (n+1) for _ in range(n+1)]
+info = [] # 방향 회전 정보
 
-n, c = map(int, input().split())
-data = []
-for _ in range(n):
-    data.append(int(input()))
-data.sort()
+# 맵정보 - 사과를 1로 표시
+for _ in range(k):
+    a, b = map(int, input().split())
+    data[a][b] = 1
+# 방향 회전 정보 입력
+l = int(input())
+for _ in range(l):
+    x, c = map(str, input().split())
+    info.append((int(x), c))
+# 처음 오른쪽을 보고있으므로 (동남서북)
+dx = [0,1,0,-1]
+dy = [1,0,-1,0]
 
-# 예외처리 - 제일짧은 거리를 출력해줘야한다
-if n <= c:
-    pre = data[0]
-    min_value = int(1e9)
-    for i in range(1, len(data)):
-        min_value = min(min_value, data[i]-pre)
-        pre = data[i]
-    print(min_value)
-    exit()
+def turn(direction, c):
+    if c == 'L':
+        direction = (direction - 1) % 4
+    else:
+        direction = (direction + 1) % 4
+    return direction
 
-# 거리로 접근하자    
-start = 1 # 제일짧은 거리차이는 1일것이지
-end = data[-1] - data[0] # 제일 긴 거리차이 
-max_value = 0
-
-while start <= end:
-    mid = (start + end) // 2
-    count = 1 # 시작위치에는 공유기 1개 설치하기때문에
-    pre = data[0] # 시작위치부터 mid 씩보면서 거리에 집이 있는지 체크
-    # 맨 끝까지 놔본다
-    for i in range(1, len(data)):
-        if data[i] - pre >= mid:
-            count += 1
-            pre = data[i]
-            if count == c:
-                break
+def simulate():
+    x, y = 1, 1 # 뱀의 머리 위치
+    data[x][y] = 2 # 맵이 존재하는 위치 2
+    direction = 0 # 시작이 동쪽
+    time = 0 # 시작한 뒤의 초
+    index = 0 # 다음에 회전할 정보
+    q = [(x,y)]
     
-    if count == c: # 설치가능하면 길이 좀 늘려보자
-        max_value = mid
-        start = mid + 1
-    else: 
-        end = mid - 1
-print(max_value)
+    while True:
+        nx = x + dx[direction]
+        ny = y + dy[direction]
+        # 범위안에 있고, 뱀 안만난다면
+        if nx > 0 and ny > 0 and nx <= n and ny <= n and data[nx][ny] != 2:
+            # 사과가 없다면 이동 후 꼬리 제거
+            if data[nx][ny] == 0:
+                data[nx][ny] = 2
+                q.append((nx, ny))
+                px, py = q.pop(0)
+                data[px][py] = 0
+            # 사과가 있다면 이동 후 꼬리 그대로
+            if data[nx][ny] == 1:
+                data[nx][ny] = 2
+                q.append((nx, ny))
+        # 벽이나 몸통과 부딪히면 끝
+        else:
+            time += 1
+            break
+        x,y = nx, ny # 다음 위치로 이동
+        time += 1
+
+        if index < l and time == info[index][0]: # 회전할 시간
+            direction = turn(direction, info[index][1])
+            index += 1
+    return time
+
+print(simulate())
 
