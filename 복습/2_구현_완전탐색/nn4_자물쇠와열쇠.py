@@ -1,3 +1,72 @@
+'''
+lock은 가만히 있을것임.
+key를 돌리면서 비교할것임.
+key가 lock보다 크면서 lock이 안닿는 부분에 key의돌기가 있다면 애초에 FALSE임.
+
+lock을 3배크기로 늘리고 정가운데에 lock배치 (0,0)부터 key배치해서옆으로이동.끝까찌갈떄까지.
+키돌려서도 넣어봄.
+ if 가운데부분이 전부 1이라면 True . 종료
+ else: 다음칸넘어감
+ 
+1 2 3   7 4 1
+4 5 6   8 5 2
+7 8 9   9 6 3
+2,0 ->0,0
+1,0 ->0,1
+2,1 ->1,0
+'''
+# 시계방향으로 90도 회전하는 함수
+def turn90(data):
+    length = len(data)
+    array = [[0] * length for _ in range(length)]
+    
+    for i in range(length):
+        for j in range(length):
+            array[i][j] = data[length-j-1][i]
+            
+    return array
+# 3배로 키워주는 함수
+def three_multi(data):
+    length = len(data) * 3
+    l = len(data)
+    array = [[0] * length for _ in range(length)]
+    for i in range(len(data)):
+        for j in range(len(data)):
+            array[i+l][j+l] = data[i][j]
+    return array
+
+def solution(key, lock):
+    three_lock = three_multi(lock)
+    # 방향 4개로 돌려서 볼것이므로 4번 반복
+    for _ in range(4):
+        key = turn90(key)
+    # 3배짜리 lock에 열쇠 넣어본다.
+        for i in range(0, len(three_lock) - len(key)):
+            for j in range(0, len(three_lock) - len(key)):
+
+                # 열쇠를 넣어본다
+                for x in range(len(key)):
+                    for y in range(len(key)):
+                        three_lock[i+x][j+y] += key[x][y]
+                # 열쇠가 딱 맞는지 본다
+                flag = True
+                for x in range(len(lock), len(lock)*2):
+                    for y in range(len(lock), len(lock)*2):
+                        if three_lock[x][y] != 1:
+                            flag = False
+                            break
+                    if flag == False:
+                        break
+                # 딱 맞으면 종료
+                if flag:
+                    return True
+                # 다르면? 원상복구한다
+                else:
+                    for x in range(len(key)):
+                        for y in range(len(key)):
+                            three_lock[i+x][j+y] -= key[x][y]
+    
+    return False
 # '''
 # 1. Lock의 3배 크기를 만든다. 가운데를 lock으로 만듦.
 # 2. key를 3Lock처음부터 넣어본다. 그때 lock부분이 다 1이라면 True.

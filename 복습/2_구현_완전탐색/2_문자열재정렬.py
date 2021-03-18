@@ -19,7 +19,9 @@ for x in data:
     else:
         alpha.append(x)
 alpha.sort()
-print(''.join(map(str,alpha)) + str(num))
+if num != 0:
+    alpha.append(str(num))
+print(''.join(map(str,alpha)))
 
 ##########################################
 ##########################################
