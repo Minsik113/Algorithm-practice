@@ -1,50 +1,32 @@
-'''
-n개의 숫자
-n-1개의 연산자
+from itertools import combinations
 
-'''
 n = int(input())
-number = list(map(int, input().split()))
-
-# 가능한 연산자
-oper_type = ['+','-','*','/']
-operator_each_num = list(map(int, input().split()))
-count_oper = dict() # 연산자들의 개수를 저장해놓은 dict()
-for i in range(4):
-    count_oper[oper_type[i]] = operator_each_num[i]
-    
-# operator에는 한줄로 세워둠. 
-# count_oper에는 현재 남은 연산자들의 개수를 저장한 dict()
-
-# 가능한 연산자 종류를 찾아볼까?
-row = [''] * (n-1) 
-max_value = int(-1e9)
+data = [list(map(int, input().split())) for _ in range(n)]
+array = [i for i in range(n)]
 min_value = int(1e9)
-# x연산자를 depth위치에 넣어도 되는가?
-def check(x, depth):
-    if count_oper[x] > 0:
-        return True
-    return False
+total = set()
 
-def solve(depth):
-    global max_value, min_value
-    # 원하는 개수 되었으니 계산
-    if depth == n-1:
-        pre = str(number[0])
-        for i in range(1, n):
-            pre = int(eval(str(pre) + row[i-1] + str(number[i])))
-        max_value = max(max_value, pre)
-        min_value = min(min_value, pre)
-        return
-    for i in range(len(oper_type)):
-        # 연산자를 depth위치에 넣어도 되는가?
-        if check(oper_type[i], depth):
-            row[depth] = oper_type[i] # 넣고
-            count_oper[row[depth]] -= 1
-            solve(depth + 1) #다음depth를 본다
-            count_oper[row[depth]] += 1
-            row[depth] = '' # 다 사용했으니 원상복구
-
-solve(0)
-print(max_value)
+for left in combinations(array, n//2):
+    right = set()
+    right = []
+    for i in range(n):
+        if i not in left:
+            right.append(i)
+    # 봤던거 안보기 위해서
+    if left in total:
+        break
+    total.add(left)
+    total.add(tuple(right))
+    
+    left = list(left)
+    right = list(right)
+    # left, right 합구하자
+    l_sum, r_sum = 0, 0
+    for i in range(len(left)):
+        for j in range(len(right)):
+            l_sum += data[left[i]][left[j]]
+            r_sum += data[right[i]][right[j]]
+    print(left, right, l_sum, r_sum)
+    min_value = min(min_value, abs(l_sum - r_sum))
+print()
 print(min_value)
