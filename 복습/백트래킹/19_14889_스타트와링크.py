@@ -82,38 +82,3 @@ for left in combinations(array, n//2):
     # print(left, right, l_sum, r_sum)
     min_value = min(min_value, abs(l_sum - r_sum))
 print(min_value)
-##########################################
-##########################################
-# 3/20 pypy3로는 됨
-'''
-n = 짝수
-n명을 반띵해라.
-1. a팀 n//2명 을뽑아라.
-2. b팀은 나머지
-3. a팀에 속한애들 a_sum 에두고 
-4. a팀에 안속하면 b_sum에 더한다.
-5. abs(a_sum - b_sum)이 제일 작은값을 구해라
-'''
-from itertools import combinations
-
-n = int(input())
-data = [list(map(int, input().split())) for _ in range(n)]
-array = [i for i in range(n)]
-min_value = int(1e9)
-
-for left in combinations(array, n//2):
-    left = list(left)
-    right = []
-    for i in range(n):
-        if i not in left:
-            right.append(i)
-    # left, right 합구하자
-    l_sum, r_sum = 0, 0
-    for i in range(len(left)):
-        for j in range(len(right)):
-            l_sum += data[left[i]][left[j]]
-            r_sum += data[right[i]][right[j]]
-    # print(left, right, l_sum, r_sum)
-    min_value = min(min_value, abs(l_sum - r_sum))
-
-print(min_value)
