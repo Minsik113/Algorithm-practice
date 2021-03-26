@@ -1,60 +1,86 @@
-'''
-nxn  -1 0 1 중 하나
-
--> 재귀써야함
-array = nxn 
-1. check(array)해서 모든 수가 같은지 본다
-2. 같으면 끝
-3. 다르면 9등분해서 각부분의 리스트를 check(new_array)한다.
-'''
+##########################################
+##########################################
+# 3/26 - 같지않은 수 나오면 바로 9등분 하기
+import sys
+input = sys.stdin.readline
 
 n = int(input())
 data = [list(map(int, input().split())) for _ in range(n)]
+result = [0] * 3 
 
-a = 0
-b = 0
-c = 0
+def cut(a, b, array, length):
+    pre = array[a][b]
+    for i in range(a, a+length):
+        for j in range(b, b+length):
+            if pre != array[i][j]:
+                # 9등분해라
+                for x in range(3):
+                    for y in range(3):
+                        cut(a+length//3*x, b+length//3*y, array, length//3)
+                return
+    # 모든원소가 같으면 이쪽으로 온다
+    if pre == -1:
+        result[0] += 1
+    elif pre == 0:
+        result[1] += 1
+    elif pre == 1:
+        result[2] += 1
 
-# array의 원소를 본다. 다르면 9 등분함
-# 같으면 return
-count = [0] * 3 # -1, 0, 1 을 저장
-def check(array):
-    global count
-    flag = True
-    print('---')
-    print(array)
-    # 모든값이 같은지 본다
-    pre = array[0][0]
-    for i in range(len(array)):
-        for j in range(len(array[0])):
-            if array[i][j] != pre:
-                flag = False
-    # 모두 같을때
-    if flag:
-        count[pre-1] += 1
-        return
-    # 하나라도 다를때 -> 9등분 각각을 재귀로 보낸다
-    else:
-        length = len(array) // 3
-        print(array[0:length][0:length])
-        print(array[length:2*length][0:length])
-        print(array[2*length:3*length][0:length])
-        print('--')
-        print(array[0])
-        print(array[0][:length])
-        print(array[0][length:2*length])
-        print(array[0][2*length:3*length])
-        # check(array[0:length][0:length])
-        # check(array[length:2*length][0:length])
-        # check(array[2*length:3*length][0:length])
+cut(0, 0, data, n)
+for i in result:
+    print(i)
 
-        # check(array[0:length][length:2*length])
-        # check(array[length:2*length][length:2*length])
-        # check(array[2*length:3*length][length:2*length])
+##########################################
+##########################################
+# 3/26 - 시간초과 코드
+'''
+분할정복 - 분할해서 확인해라. (재귀)
+n = 3^7 = 2200
+n^n = 약4500000
+2초면 배열계속보면서해도 충분할것같은데;;
 
-        # check(array[0:length][2*length:3*length])
-        # check(array[length:2*length][2*length:3*length])
-        # check(array[2*length:3*length][2*length:3*length])
+1. 들어온배열의 합을 본다. (음수, 0, 양수 )
+2. 모두같다면 어떤원소로 같은지를 리스트에서 체크해준다
+'''
+# import sys
+# input = sys.stdin.readline
 
-check(data)
-# print(count)
+# n = int(input())
+# data = [list(map(int, input().split())) for _ in range(n)]
+# result = [0] * 3 # -1, 0, 1 의 개수를 저장할 리스트
+
+# def calculator(a, b, array, length):
+#     global result
+#     # 1.
+#     count_l = 0 # -1
+#     count = 0 # 0
+#     count_r = 0 # 1
+#     for i in range(a, a+length):
+#         for j in range(b, b+length):
+#             if array[i][j] == -1:
+#                 count_l += 1
+#             elif array[i][j] == 1:
+#                 count_r += 1
+#             else:
+#                 count += 1
+#     # 2. array가 같은 수 라면
+#     if count_r == length*length or count == length*length or count_l == length*length:
+#         # 시작점 -1=0  0=1  1=2
+#         result[array[a][b]+1] += 1 
+#     # 3. 섞여있다면 9등분해서 봐라
+#     else:
+#         k = length // 3
+#         calculator(a, b, array, k) # 왼위
+#         calculator(a+k, b, array, k) # 왼중간
+#         calculator(a+2*k, b, array, k) # 왼아래
+#         calculator(a, b+k, array, k) # 중간위
+#         calculator(a+k, b+k, array, k) # 중간중간
+#         calculator(a+2*k, b+k, array, k) # 중간아래
+#         calculator(a, b+2*k, array, k) # 오른위
+#         calculator(a+k, b+2*k, array, k) # 오른중간
+#         calculator(a+2*k, b+2*k, array, k) # 오른아래
+#     return
+
+# calculator(0, 0, data, n)
+# for i in result:
+#     print(i)
