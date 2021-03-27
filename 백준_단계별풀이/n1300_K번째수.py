@@ -1,53 +1,75 @@
-##########################################
-##########################################
-# 3/27
-'''
-계차수열로 정렬한 후 
-k값을 출력.
-
-'''
-n = int(input())
-k = int(input())
-
-count = [0] * (n*n +1) # 1~(n*n)이니까
-# O(200만)
-data = [i*j for i in range(1, n+1) for j in range(1, n+1)]
-#O(200만)
-for i in range(len(data)):
-    count[data[i]] += 1
-
-# count각각에 들어간 애들을 뺴면서 비교한다
-print(k,count,len(data))
-num = 1
-while num <=len(data):
-    k -= count[num]
-    if k <= 0:
-        print(num)
-        break
-    else:
-        num += 1
-
-# ##########################################
-# ##########################################
-# # 3/27 - heapq는 메모리초과
 # '''
-# --- heapq - 메모리초과
-# n = 10만
-# 그냥 minheap에 다 넣는다. O(n^2)
-# k번쨰 출력한다
+# https://namu.wiki/w/%EC%B5%9C%EC%9E%A5%20%EC%A6%9D%EA%B0%80%20%EB%B6%80%EB%B6%84%20%EC%88%98%EC%97%B4#s-3.2
+# 위사이트 참고
+# 최장증가부분수열을 O(NlogN)로 풀 수 있다.
+# 내가 풀던건 O(N^2)
 # '''
-# import heapq
-
+# # k번째 라는뜻은 앞에 k-1개가 있다는 말이다.
 # n = int(input())
 # k = int(input())
-# data = []
+# start = 1
+# end = k
+# answer = 0
+# while start <= end:
+#     mid = (start + end) // 2
+#     cnt = 0
+#     for i in range(1, n+1):
+#         cnt += min(mid//i, n)
+#     if cnt >= k:
+#         answer = mid
+#         end = mid - 1
+#     else:
+#         start = mid + 1
+# print(answer)
 
-# for i in range(1, n+1):
-#     for j in range(1, n+1):
-#         heapq.heappush(data, i*j)
+# # ##########################################
+# # ##########################################
+# # # 3/27 - 왜 이것도 메모리초과지
+# # '''
+# # 계차수열로 정렬한 후 
+# # k값을 출력.
+# # N=10만
+# # O(NlogN) = 10만 x 10 x log100 = 10만 x 70 = 700만
 
-# for i in range(k):
-#     if i == k-1:
-#         print(heapq.heappop(data))
-#         break
-#     heapq.heappop(data)
+# # 700만 + 700만 정도 메모리부족이 왜 나 ㄹ 까 . ? 
+# # '''
+# # n = int(input())
+# # k = int(input())
+
+# # count = [0] * (n*n +1) # 1~(n*n)이니까
+# # # O(700만)
+# # for i in range(1, n+1):
+# #     for j in range(1, n+1):
+# #         count[i*j] += 1
+# # # count각각에 들어간 애들을 뺴면서 비교한다
+# # print(count)
+# # for i in range(1, len(count)):
+# #     k -= count[i]
+# #     if k <= 0:
+# #         print(i)
+# #         break
+
+# # # ##########################################
+# # # ##########################################
+# # # # 3/27 - heapq는 메모리초과
+# # # '''
+# # # --- heapq - 메모리초과
+# # # n = 10만
+# # # 그냥 minheap에 다 넣는다. O(n^2)
+# # # k번쨰 출력한다
+# # # '''
+# # # import heapq
+
+# # # n = int(input())
+# # # k = int(input())
+# # # data = []
+
+# # # for i in range(1, n+1):
+# # #     for j in range(1, n+1):
+# # #         heapq.heappush(data, i*j)
+
+# # # for i in range(k):
+# # #     if i == k-1:
+# # #         print(heapq.heappop(data))
+# # #         break
+# # #     heapq.heappop(data)
