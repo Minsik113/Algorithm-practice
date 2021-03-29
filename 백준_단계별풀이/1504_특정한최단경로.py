@@ -1,5 +1,7 @@
 '''
 1 -> v1 -> v2 -> n
+1 -> v2 -> v1 -> n
+둘중 짧은 거리를 출력한다.
 다익스트라 3번쓰면됨
 
 '''
@@ -34,17 +36,47 @@ def dijkstra(start, x):
     
     return distance[x]
 
-min_value = 0    
-# 3번의 다익스트라
-result = [1,v1,v2,n]
+# 시작->v1->v2->끝
+result = [1, v1, v2,n]
+min_value1 = 0    
+flag1 = True
 pre = result[0]
-flag = True
 for k in range(1, len(result)):
     distance = [INF] * (n+1)
-    min_value += dijkstra(pre, result[k])
+    temp = dijkstra(pre, result[k])
+    if temp != INF:
+        min_value1 += temp
+    else:
+        flag1 = False
+        break
     pre = result[k]
     
-if min_value >= INF:
+# 시작->v2->v1->끝
+result = [1,v2,v1,n]
+min_value2 = 0
+flag2 = True
+pre = result[0]
+for k in range(1, len(result)):
+    distance = [INF] * (n+1)
+    temp = dijkstra(pre, result[k])
+    if temp != INF:
+        min_value2 += temp
+    else:
+        flag2 = False
+        break
+    pre = result[k]
+
+# 예외처리. 간선정보가 없는경우엔 -1
+if e == 0:
     print(-1)
+    exit()
+# 둘다 참이면 더 작은애 출력
+if flag1 and flag2:
+    print(min(min_value1, min_value2))
+elif not flag1:
+    print(min_value2)
+elif not flag2:
+    print(min_value1)
 else:
-    print(min_value)
+    print(-1)
+
