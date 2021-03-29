@@ -73,9 +73,9 @@ if e == 0:
 # 둘다 참이면 더 작은애 출력
 if flag1 and flag2:
     print(min(min_value1, min_value2))
-elif not flag1:
+elif not flag1 and flag2:
     print(min_value2)
-elif not flag2:
+elif flag1 and not flag2:
     print(min_value1)
 else:
     print(-1)
