@@ -1,0 +1,5 @@
+● Mypy를 사용한 타입 헌팅
+$ pip install mypy
+
+● 
+
