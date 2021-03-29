@@ -1,0 +1,7 @@
+● 유튜브
+:라이브로 코딩하는것을 볼 수 있다.
+https://www.youtube.com/user/ChrissSong
+
+● 깃허브
+:교재의 소스코드와 Q&A
+https://github.com/onlybooks/algorithm-interview
