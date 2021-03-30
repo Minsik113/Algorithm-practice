@@ -4,7 +4,9 @@ bfs로접근
 nxn 체스판
 
 '''
+import sys
 from collections import deque
+input = sys.stdin.readline
 
 # 8방위 10시,11시,1시,2시...
 dx = [-1,-2,-2,-1,1,2,2,1]
