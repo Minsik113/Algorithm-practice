@@ -5,3 +5,47 @@ https://www.youtube.com/user/ChrissSong
 ● 깃허브
 :교재의 소스코드와 Q&A
 https://github.com/onlybooks/algorithm-interview
+
+● 참고
+★파이썬은 모든 것이 객체이다.
+    1. 불변 객체 - (bool, int, float, tuple, str)
+    a = 4
+    b = a
+    b = 10
+    -> a, b 는 같은 id를 가지고 있다. 뒤에 b = 10으로 선언한후에 id를 보면 id가 바뀌어있다.
+    (값이 변한게 아니라, 새로운 객체를 참조 하였다는 의미이다.)
+
+    2. 가변 객체 - (list, set, dict)
+    a = [1, 2, 3, 4]
+    a[2] = 6 
+    >>> a = [1, 2, 6, 4]
+    (값이 변함)
+★ is 와 == 
+    1. is는 id()값을 비교하는 함수이다.
+    None은 널(null)로서 값 자체가 정의되어 있지 않으므로 ==로 비교 불가.
+    -> None은 is로만 비교 가능.
+    a = [1, 2, 3]
+    >>> a == copy.deepcopy(a)
+    True
+    >>> a is copy.deepcopy(a)
+    False 
+    복사한 결과 또한 값은 같지만 id()는 다르다. (==로비교하면 True, is로 비교하면 False)
+
+● 파이썬 자료형
+None - None Type
+
+숫자 - 정수형 - 정수(int)
+               불리언(bool)
+
+     - 실수(float)
+
+집합 - 집합(set)
+
+매핑 - 딕셔너리(dict)
+
+시퀀스 - 불변 - 문자열(string)
+               튜플(tuple)
+               바이트(bytes)
+       - 가변 - 리스트
+
+
