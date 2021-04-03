@@ -1,8 +1,8 @@
-a = ["wer w a x d f", "wrax 1 3 4 2","wer w a x d f", "wrax 1 3 4 2"]
-for log in a:
-    if log.split()[1].isdigit():
-        print(log,'숫자임')
-    else:
-        print(log,'알파벳임')
-# b = [4, 5, 6]
-# print(a+b)
+a = ['caew', 'bde','adsr','abc']
+
+# 첫문자열, 마지막문자열 순으로 정렬
+def fn(s):
+    return s[0], s[-1]
+
+print(sorted(a, key=fn))
+print(sorted(a, key=lambda x:(x[0], x[-1])))
