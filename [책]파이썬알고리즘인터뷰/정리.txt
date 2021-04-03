@@ -6,6 +6,9 @@ https://www.youtube.com/user/ChrissSong
 :교재의 소스코드와 Q&A
 https://github.com/onlybooks/algorithm-interview
 
+● 정규식 표현 blog
+https://blog.dasomoli.org/python-regular-expression-howto/
+
 ● 참고
 ★파이썬은 모든 것이 객체이다.
     1. 불변 객체 - (bool, int, float, tuple, str)
