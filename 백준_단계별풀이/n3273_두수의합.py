@@ -22,7 +22,6 @@ if __name__ == '__main__':
             result += 1
             # print('답:',data[left],data[right])
             left += 1
-            
     print(result)
 
 # import sys

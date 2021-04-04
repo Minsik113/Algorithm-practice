@@ -1,8 +1,5 @@
-a = ['caew', 'bde','adsr','abc']
-
-# 첫문자열, 마지막문자열 순으로 정렬
-def fn(s):
-    return s[0], s[-1]
-
-print(sorted(a, key=fn))
-print(sorted(a, key=lambda x:(x[0], x[-1])))
+nums = [1,2,3,4,5,6,7]
+nums_map = dict()
+nums_map[1] = 3
+nums_map['123'] = 5
+print(nums_map)
