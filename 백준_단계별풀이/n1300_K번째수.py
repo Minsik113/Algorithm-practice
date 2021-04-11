@@ -1,3 +1,53 @@
+'''
+1. 다 넣고 k번빼주면되는거아닌가?
+-> 메모리초과
+2. 1부터 1의 약수들의 조합 찾는다.
+1-> 1x1 = 1개
+2-> 1x2 2x1 = 2개
+3-> 1x3 3x1 = 2개
+4-> 1x4 2x2 4x1 = 3개
+개수 더해가면서 k개이상이되면 해당 수 출력.
+
+'''
+n = int(input())
+k = int(input())
+
+start = 0
+end = k # k값보다 클 수가 없다
+answer = 0
+while start <= end:
+    mid = (start + end) // 2
+    count = 0
+    for i in range(1, n+1):
+        count += min(mid//i, n) # 엄청 많아도 길이(n)를 넘길 수는 없음.
+    
+    if count < k:
+        start = mid + 1
+    else:
+        end = mid - 1
+        answer = mid
+print(answer)
+
+# n = int(input())
+# k = int(input())
+
+# start = 0
+# end = k # k번쨰수는 k보다 클 수가 없다.
+# answer = 0
+
+# while start <= end:
+#     mid = (start + end) // 2
+#     count = 0
+#     for i in range(1, n + 1):
+#         count = count + min(mid//i, n) # 각 행에서 mid보다 작은애들의 개수
+    
+#     if count < k:
+#         start = mid + 1
+#     else:
+#         answer = mid
+#         end = mid - 1
+
+# print(answer)
 
 # # k번째 라는뜻은 앞에 k-1개가 있다는 말이다.
 # n = int(input())
