@@ -1,30 +1,52 @@
-import sys
+'''
+터널 연결할때 비용
+
+MST문제
+'''
+import sys, heapq
+from collections import deque
 input = sys.stdin.readline
 
+def union_parent(parent, a, b):
+    a = find_parent(parent, a)
+    b = find_parent(parent, b)
+    if a > b:
+        parent[a] = b
+    else:
+        parent[b] = a
+
+def find_parent(parent, x):
+    if x != parent[x]:
+        parent[x] = find_parent(parent, parent[x])
+    return parent[x]
+
 n = int(input())
-data = [list(map(int, input().split())) for _ in range(n)]
-result = [0] * 3
+x = []
+y = []
+z = []
+for i in range(n):
+    data = list(map(int, input().split()))
+    x.append((data[0], i))
+    y.append((data[1], i))
+    z.append((data[2], i))
+x.sort()
+y.sort()
+z.sort()
 
-def cut(a, b, array, length):
-    
-    # 비교할 값을 찾고, 비교시작
-    pre = array[a][b]
-    for i in range(a, a+length):
-        for j in range(b, b+length):
-            if pre != array[i][j]:
-                # 9등분한다.
-                for x in range(3):
-                    for y in range(3):
-                        cut(a+length//3*x, b+length//3*y, array, length//3)
-                # 봤으니까 리턴함
-                return
-    if pre == -1:
-        result[0] += 1
-    elif pre == 0:
-        result[1] += 1
-    elif pre == 1:
-        result[2] += 1
+edges = []
+for i in range(1, n):
+    heapq.heappush(edges, (abs(x[i-1][0] - x[i][0]), x[i-1][1], x[i][1]))
+    heapq.heappush(edges, (abs(y[i-1][0] - y[i][0]), y[i-1][1], y[i][1]))
+    heapq.heappush(edges, (abs(z[i-1][0] - z[i][0]), z[i-1][1], z[i][1]))
 
-cut(0, 0, data, n)
-for i in result:
-    print(i)
+parent = [0] * (n+1)
+for i in range(n):
+    parent[i] = i
+
+result = 0
+while edges:
+    dist, a, b = heapq.heappop(edges)
+    if find_parent(parent, a) != find_parent(parent, b):
+        union_parent(parent, a, b)
+        result += dist
+print(result)
