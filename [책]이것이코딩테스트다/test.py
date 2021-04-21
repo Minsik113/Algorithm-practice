@@ -1,45 +1,38 @@
-import heapq, sys
-input = sys.stdin.readline
-INF = int(1e9)
+from itertools import permutations
 
-n, m = map(int, input().split())
-graph = [[] for _ in range(n+1)]
-distance = [INF] * (n+1)
+n = int(input())
+num = list(map(int, input().split()))
 
-for _ in range(m):
-    a, b = map(int, input().split())
-    graph[a].append((b, 1))
-    graph[b].append((a, 1))
+oper_type = ['+','-','*','/']
+oper_num = list(map(int, input().split()))
 
-x, k = map(int, input().split()) # 1->k -> x
+operator = ''
+for i in range(4):
+    operator += oper_type[i] * oper_num[i]
 
-def dijkstra(start):
-    distance[start] = 0
-    q = []
-    heapq.heappush(q, (0, start))
-    while q:
-        dist, now = heapq.heappop(q)
-        if distance[now] < dist:
-            continue
-        for i in graph[now]:
-            cost = dist + i[1]
-            if distance[i[0]] > cost:
-                distance[i[0]] = cost
-                heapq.heappush(q, (cost, i[0]))
+def check(k):
+    if oper_num[k] > 0:
+        return True
+    return False
 
-dijkstra(1)
-total_time = 0
-if distance[k] == INF:
-    print(-1)
-    exit()
-else:
-    total_time += distance[k]
+def dfs(row, depth):
+    if depth == n-1:
+        print(row)
+        return
 
-distance = [INF] * (n+1)
-dijkstra(k)
-if distance[x] == INF:
-    print(-1)
-    exit()
-else:
-    total_time += distance[x]
-print(total_time)
+    for i in range(4):
+        if check(i):
+            row[depth] = oper_type[i] # 넣고
+            oper_num[i] -= 1 # 값하나줄여준다.
+            dfs(row, depth+1) # 다음위치에 넣어본다
+            oper_num[i] += 1
+            row[depth] = ''
+    
+# 연산자가 들어갈 수 있는지 없는지만 계속 체크하면된다.
+row = [''] * (n-1)
+dfs(row, 0)
+
+
+
+
+
