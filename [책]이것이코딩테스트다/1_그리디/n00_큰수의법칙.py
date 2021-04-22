@@ -27,7 +27,7 @@ print(result)
 
 ##########################################
 ##########################################
-# 단순한 풀이
+# 단순한 풀이 - 수가 커지면 적용X
 N, M, K = map(int, input().split())
 array = list(map(int, input().split()))
 array.sort(reverse=True)
