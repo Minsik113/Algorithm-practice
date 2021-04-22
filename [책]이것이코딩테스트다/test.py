@@ -1,10 +1,13 @@
-import heapq
-a = [4,5,6,7,8]
-h = []
+n = int(input())
+coins = list(map(int, input().split()))
+coins.sort()
 
-for idx, i in enumerate(a):
-    heapq.heappush(h, [idx, i])
-print(h)
-while h:
-    heapq.heappop(h)
-    print(h)
+# 돈을 만들 수 있는지 없는지
+start = 1
+for x in coins:
+    if start < x:
+        break
+    start += x
+    print(start)
+print(start)
+
