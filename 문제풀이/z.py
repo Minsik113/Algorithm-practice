@@ -1,7 +1,3 @@
-a = [1,2,3]
-b = [1,2,3,4]
-if a == b[:len(a)]:
-    print('w')
-
-print(a)
-print(b[:len(a)])
+import bisect
+a = [1,2,2,2,3,4]
+print(bisect.bisect_right(a, 2))
