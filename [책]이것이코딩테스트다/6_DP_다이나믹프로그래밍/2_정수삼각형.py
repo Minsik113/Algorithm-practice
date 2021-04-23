@@ -1,5 +1,33 @@
 ##########################################
 ##########################################
+# 4/23
+n = int(input())
+array = []
+array.append([int(input())])
+for _ in range(n-1):
+    array.append(list(map(int, input().split())))
+# print(array)
+
+for i in range(1, n):
+    for j in range(len(array[i])):
+        # 맨처음
+        if j == 0:
+            array[i][j] = array[i-1][j] + array[i][j]
+        # 맨뒤
+        elif j == len(array[i]) - 1:
+            array[i][j] = array[i-1][j-1] + array[i][j]
+        # 중간
+        else:
+            array[i][j] = max(array[i-1][j-1], array[i-1][j]) + array[i][j]
+
+# print(array)
+max_value = 0
+for i in range(n):
+    max_value = max(max_value, array[n-1][i])
+print(max_value)
+
+##########################################
+##########################################
 # 깔끔한 코드
 # n = int(input())
 # dp = []

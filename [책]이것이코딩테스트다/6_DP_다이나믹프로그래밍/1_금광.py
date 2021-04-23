@@ -1,5 +1,39 @@
 ##########################################
 ##########################################
+# 4/23 - 배열 자르는거 기억하자
+test_ = int(input())
+for _ in range(test_):
+    n, m = map(int, input().split())
+
+    data = list(map(int, input().split()))
+
+    array = []
+    index = 0
+    for i in range(n):
+        array.append(data[index*m : index*m + m])
+        index += 1
+
+    for j in range(1, m):
+        for i in range(n):
+            # 맨위
+            if i == 0:
+                array[i][j] = max(array[i][j-1], array[i+1][j-1]) + array[i][j]
+            # 맨아래
+            elif i == n-1:
+                array[i][j] = max(array[i][j-1], array[i-1][j-1]) + array[i][j]
+            # 중간
+            else:
+                array[i][j] = max(array[i][j-1], array[i-1][j-1], array[i+1][j-1]) + array[i][j]
+
+    max_value = 0
+    print(array)
+    for i in range(n):
+        max_value = max(max_value, array[i][m-1])
+    print(max_value)
+    
+
+##########################################
+##########################################
 # 3/9 복습
 for _ in range(int(input())):
     n, m = map(int, input().split()) # n행 m열
