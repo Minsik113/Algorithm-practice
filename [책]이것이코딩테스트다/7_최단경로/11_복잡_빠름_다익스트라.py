@@ -36,7 +36,7 @@ def dijkstra(start):
     heapq.heappush(h, (0,start)) # (거리, 시작노드)
     distance[start] = 0
     while h:
-        dist, now = heapq.heappop(h) # (거리, 시작노드)
+        dist, now = heapq.heappop(h) # (시작노드->now노드까지거리, 노드)
         # 이미 거리가 더 짧은 길이 있으므로 무시
         if distance[now] < dist:
             continue

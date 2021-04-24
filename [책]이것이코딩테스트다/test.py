@@ -1,25 +1,40 @@
-x = int(input())
-arr = list(map(int, input().split()))
+import heapq, sys
+input = sys.stdin.readline
+INF = int(1e9)
 
-dp = [1 for i in range(x)]
+n, m = map(int, input().split())
+start = int(input())
+graph = [[] for _ in range(n+1)]
+distance = [INF for _ in range(n+1)]
 
-for i in range(x):
-    for j in range(i):
-        if arr[i] > arr[j]:
-            dp[i] = max(dp[i], dp[j] + 1)
+for _ in range(m):
+    a, b, w = list(map(int, input().split()))
+    graph[a].append((b, w)) # a->b w
 
-max_dp = max(dp)
-print(max_dp)
+def dijkstra(start):
+    q = []
+    heapq.heappush(q, (0, start)) # (거리, 노드)
+    distance[start] = 0
+    while q:
+        dist, now = heapq.heappop(q)
+        if distance[now] < dist: # 이미 처리된 적이 있다,
+            continue 
+        for i in graph[now]:
+            cost = dist + i[1]
+            if cost < distance[i[0]]:
+                distance[i[0]] = cost
+                heapq.heappush(h, (cost, i[0]))
 
-max_idx = dp.index(max_dp)
-lis = []
-
-while max_idx >= 0:
-    if dp[max_idx] == max_dp:
-        lis.append(arr[max_idx])
-        max_dp -= 1
-    max_idx -= 1
-
-lis.reverse()
-print(lis)
-print(*lis)
+result = 0
+dijkstra(start)
+if distance[3] == INF: # 시작노드->3 까지 거리
+    print(-1)
+    exit()
+result += distance[3]
+distane = [INF for _ in range(n)]
+dijkstra(3)
+if distance[7] == INF:
+    print(-1)
+    exit()
+result += distance[7]
+print(result)
