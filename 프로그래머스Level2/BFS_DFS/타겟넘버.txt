@@ -1,0 +1,40 @@
+# 2021-08-04 20:45~
+# 더하거나 빼서 target만들기
+
+def DFS(numbers, target, total):
+    if len(numbers) == 0:
+        if total == target:
+            return 1
+        else:
+            return 0
+    else:
+        res = 0
+        res += DFS(numbers[:-1], target, total + numbers[-1])
+        res += DFS(numbers[:-1], target, total - numbers[-1])
+        return res
+    
+def solution(numbers, target):
+    answer = DFS(numbers, target, 0)
+    
+    return answer
+
+
+#BFS
+from collections import deque
+
+def solution(numbers, target):
+    answer = 0
+    stack = deque([(0, 0)])
+    print(stack)
+    while stack:
+        current_sum, num_idx = stack.popleft()
+
+        if num_idx == len(numbers):
+            if current_sum == target:
+                answer += 1
+        else:
+            number = numbers[num_idx]
+            stack.append((current_sum+number, num_idx + 1))
+            stack.append((current_sum-number, num_idx + 1))
+
+    return answer
