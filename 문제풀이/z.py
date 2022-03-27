@@ -1,3 +1,6 @@
 import bisect
-a = [1,2,2,2,3,4]
-print(bisect.bisect_right(a, 2))
+a = [1,2,5,6,7,8,9]
+a.pop(3)
+print(a)
+
+
