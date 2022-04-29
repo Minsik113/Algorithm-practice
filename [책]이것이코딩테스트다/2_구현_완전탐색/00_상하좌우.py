@@ -5,30 +5,50 @@
 시작좌표(1,1) -> 최종좌표는?
 -> 입력받은 문자가 뭔지 하나씩 이동하면된다.
 '''
+##############
+# 2022/04/30 #
+##############
+n = int(input())
+arr = list(map(str, input().split())) # input().split()
+print(arr)
+dx = [0, 1, 0, -1] # 북동남서
+dy = [1, 0, -1, 0]
+direction = ['R','D','L','U']
+x, y = 1, 1
+nx, ny = 0,0
+for d in arr:
+    for i in range(4):
+        if direction[i] == d:
+            nx = x + dx[i]
+            ny = y + dy[i]
+        if nx < 1 or ny < 1 or nx > n or ny > n:
+            continue
+        x, y = nx, ny
+print(x, y)
+
 ##########################################
 ##########################################
 # 반복문으로 쉽게
-n = int(input())
-arrays = list(map(str, input().split()))
+# n = int(input())
+# arrays = list(map(str, input().split()))
 
-dx = [-1, 1, 0, 0] # 상 하 좌 우
-dy = [0, 0, -1, 1]
-directions = ['U', 'D', 'L', 'R'] # 상하좌우
+# dx = [-1, 1, 0, 0] # 상 하 좌 우
+# dy = [0, 0, -1, 1]
+# directions = ['U', 'D', 'L', 'R'] # 상하좌우
 
-x = 1 # 1~n까지
-y = 1
-for diect in arrays:
-    nx, ny = 0, 0
-    for i in range(len(directions)):
-        if diect == directions[i]:
-            nx = x + dx[i]
-            ny = y + dy[i]
-            break
-    if nx < 1 or ny < 1 or nx > n or ny > n:
-        continue
-    x, y = nx, ny
+# x = 1 # 1~n까지
+# y = 1
+# for diect in arrays:
+#     nx, ny = 0, 0
+#     for i in range(len(directions)):
+#         if diect == directions[i]:
+#             nx = x + dx[i]
+#             ny = y + dy[i]
+#         if nx < 1 or ny < 1 or nx > n or ny > n:
+#             continue
+#     x, y = nx, ny
 
-print(x,y)
+# print(x,y)
 ##########################################
 ##########################################
 # 모든 조건문 생성
