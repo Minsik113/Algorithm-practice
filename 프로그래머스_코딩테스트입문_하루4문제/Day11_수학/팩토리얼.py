@@ -23,3 +23,12 @@ def solution(n):
                 answer=i-1
             break
     return answer
+
+def solution(n):
+    answer = 1
+    total = 1 # 다 곱한거
+    while total <= n:
+        answer += 1
+        total *= answer
+    answer -= 1
+    return answer
