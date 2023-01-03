@@ -13,31 +13,50 @@ a/b 유한소수라면1, 무한소수라면2
 3. 공통된거 제외하고 b의 약수가 2와 5만 존재하는지 확인
 4. 그렇다면 1, 아니라면 2
 '''
-import math
-def get_primes(n):
-    # 구하고자 하는 수만큼 True를 갖는 리스트 생성
-    is_primes = [True] * n
-    # n의 최대 약수가 sqrt(n) 이하이므로 계산한 후, 소숫점이 있을 경우 올림으로 최대 반복 횟수 계산
-    max_length = math.ceil(math.sqrt(n))
-
-    for i in range(2, max_length):
-        # True일 경우, 소수
-        if is_primes[i]:
-            # i이후 i의 배수들을 지워나감
-            for j in range(i + i, n, i):
-                is_primes[j] = False
-
-    # 리스트의 True로 남아 있는 인덱스(소수)를 추출
-    return [i for i in range(2, n) if is_primes[i]]
-
 def solution(a, b):
     answer = 0
-    print(get_primes(b))
-    # a_save = [1,a]
-    # b_save = [1,b]
-    # for i in range(2, int(a**(1/2))+1):
-    #     if a % i == 0:
-    #         a_save.append(i)
-    #         a_save.append(a//i)
-    # print(a_save)
-    return answer
+    # 원래 값 저장
+    real_a = a; real_b = b
+    
+    a_save = []
+    n = 1
+    while a > 1:
+        n += 1
+        # print(real_a,a,n)
+        if a % n == 0:
+            if real_a == n:
+                break
+            else:
+                a_save.append(n)
+                a = a//n 
+                n = 1
+    print('a',a_save)
+    
+    b_save = []
+    n = 1
+    while b > 1:
+        n += 1
+        # print(real_b,b,n)
+        if b % n == 0:
+            if real_b == n:
+                break
+            else:
+                b_save.append(n)
+                b = b//n 
+                n = 1
+    print('b',b_save)
+    if real_b % real_a == 0:
+        b_save.remove(real_a)
+    print('b',b_save)
+        
+    test = set()
+    for i in b_save:
+        if i not in a_save:
+            test.add(i)
+    print(">>>",test)
+    test -= {2}
+    test -= {5}
+    print(test,len(test))
+    if len(test) == 0:
+        return 1
+    return 2
