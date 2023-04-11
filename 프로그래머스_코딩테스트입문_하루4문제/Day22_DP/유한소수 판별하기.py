@@ -1,62 +1,48 @@
 '''
-날짜: 2023.01.03
-시간복잡도:
+날짜: 2023.01.03 -> 2023.01.18풀음
+시간복잡도: O(1)
 
 문제:
-a/b 유한소수라면1, 무한소수라면2
+분수 -> 소수로 변경할 때, 유한소수인지 무한소수인지 파악하자.
+분모의 소인수가 2와 5만 존재해야함.
 
 풀이:
 23:43~
 기약분수로 나타냈을 때, 분모의 소인수가 2와 5만 존재해야한다.
-1. a의 약수
-2. b의 약수
-3. 공통된거 제외하고 b의 약수가 2와 5만 존재하는지 확인
-4. 그렇다면 1, 아니라면 2
+
+1. a와 b의 최대공약수 구하기
+2. 분모분자에 최대공약수를 나눈다. -> 기약분수
+3. 분모가 2와5의 곱으로 표현이 되는지 파악.
 '''
+
+def gcd(a, b):
+    while b > 0:
+        a, b = b, a%b
+    return a
+
 def solution(a, b):
-    answer = 0
-    # 원래 값 저장
-    real_a = a; real_b = b
+    temp = gcd(a, b)
+    bb = b // temp
     
-    a_save = []
-    n = 1
-    while a > 1:
-        n += 1
-        # print(real_a,a,n)
-        if a % n == 0:
-            if real_a == n:
-                break
-            else:
-                a_save.append(n)
-                a = a//n 
-                n = 1
-    print('a',a_save)
-    
-    b_save = []
-    n = 1
-    while b > 1:
-        n += 1
-        # print(real_b,b,n)
-        if b % n == 0:
-            if real_b == n:
-                break
-            else:
-                b_save.append(n)
-                b = b//n 
-                n = 1
-    print('b',b_save)
-    if real_b % real_a == 0:
-        b_save.remove(real_a)
-    print('b',b_save)
-        
-    test = set()
-    for i in b_save:
-        if i not in a_save:
-            test.add(i)
-    print(">>>",test)
-    test -= {2}
-    test -= {5}
-    print(test,len(test))
-    if len(test) == 0:
+    while bb%5==0:
+        bb = bb // 5
+            
+    while bb%2==0:
+        bb = bb // 2
+
+    if bb == 1:
         return 1
-    return 2
+    else:
+        return 2
+
+from math import gcd
+def solution(a, b):
+    bb = b // gcd(a, b)
+    
+    while bb%5==0:
+        bb = bb // 5
+            
+    while bb%2==0:
+        bb = bb // 2
+        
+    return 1 if bb == 1 else 2
