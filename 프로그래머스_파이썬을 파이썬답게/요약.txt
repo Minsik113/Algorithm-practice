@@ -1,0 +1,26 @@
+😀list(map(len, mylist))
+:mylist안에 있는 리스트들의 길이를 리스트로 반환한다.
+mylist = ([[1,2],[3,4],[5]])
+return = [2,2,1]
+
+😀*divmod(a,b)
+:몫 나머지를 쉽게 구하기
+return = 몫 나머지 
+
+😀int(str(num), base)
+:진수에 맞게 변환해주는 내장함수
+int(x, base=진수)
+int("3212",5) = 432
+
+😀ljust, center, rjust
+:n길이에서 s를 정렬하기
+print(s.center(n))
+
+😀string 라이브러리의 기능들
+:string 라이브러리에서 유용한 기능을 배우자
+string.ascii_lowercase # 소문자 abcdefghijklmnopqrstuvwxyz
+string.ascii_uppercase # 대문자 ABCDEFGHIJKLMNOPQRSTUVWXYZ
+string.ascii_letters # 대소문자 모두 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+string.digits
+
+😀sort(),  sorted
