@@ -24,3 +24,11 @@ string.ascii_letters # 대소문자 모두 abcdefghijklmnopqrstuvwxyzABCDEFGHIJK
 string.digits
 
 😀sort(),  sorted
+
+😀zip(*iterables)
+:각 iterables 의 요소들을 모으는 이터레이터를 만듭니다.
+animals = ['cat', 'dog', 'lion']
+sounds = ['meow', 'woof', 'roar']
+answer = dict((zip(animals, sounds)) # {'cat':'meow', 'dog':'woof', 'lion':'roar'}
+
+
