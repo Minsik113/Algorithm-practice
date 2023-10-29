@@ -31,4 +31,9 @@ animals = ['cat', 'dog', 'lion']
 sounds = ['meow', 'woof', 'roar']
 answer = dict((zip(animals, sounds)) # {'cat':'meow', 'dog':'woof', 'lion':'roar'}
 
+😀swap
+: 보통 중간에 저장할 temp를 선언해서 사용하지만, python은 아래와같이 사용가능하다
+a, b = b, a
+
+😀binary search
 
