@@ -1,3 +1,12 @@
+'''
+날짜: 2024.10.24
+시간복잡도: O(N^2)
+
+문제: A04 Binary Representation
+풀이방식: n개의 p와 q를
+
+'''
+
 public class Main {
 
 	public static void main(String[] args) {
